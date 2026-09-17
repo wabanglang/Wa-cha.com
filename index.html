@@ -652,22 +652,42 @@
         try {
           const AudioCtor = window.AudioContext || window.webkitAudioContext;
           if (!AudioCtor) return;
-          audioContext ||= new AudioCtor();
+          if (!audioContext) audioContext = new AudioCtor();
+          if (audioContext.state === "suspended") audioContext.resume();
+
           const now = audioContext.currentTime;
-          const gain = audioContext.createGain();
-          gain.gain.setValueAtTime(.0001, now);
-          gain.gain.exponentialRampToValueAtTime(.12, now + .012);
-          gain.gain.exponentialRampToValueAtTime(.0001, now + .19);
-          gain.connect(audioContext.destination);
-          [0, 1].forEach(part => {
-            const oscillator = audioContext.createOscillator();
-            oscillator.type = part ? "triangle" : "square";
-            const base = 740 + (index % 3) * 95;
-            oscillator.frequency.setValueAtTime(base * (part ? 1.5 : 1), now);
-            oscillator.frequency.exponentialRampToValueAtTime(base * (part ? 2.1 : 1.55), now + .11);
-            oscillator.connect(gain);
-            oscillator.start(now + part * .035);
-            oscillator.stop(now + .2);
+          const variation = 1 + (index % 3) * .025;
+          const notes = [880 * variation, 1320 * variation];
+
+          notes.forEach((frequency, noteIndex) => {
+            const start = now + noteIndex * .052;
+            const stop = start + .115;
+            const gain = audioContext.createGain();
+            gain.gain.setValueAtTime(.0001, start);
+            gain.gain.exponentialRampToValueAtTime(noteIndex ? .115 : .095, start + .006);
+            gain.gain.exponentialRampToValueAtTime(.0001, stop);
+            gain.connect(audioContext.destination);
+
+            const ping = audioContext.createOscillator();
+            ping.type = "square";
+            ping.frequency.setValueAtTime(frequency, start);
+            ping.frequency.exponentialRampToValueAtTime(frequency * 1.045, stop);
+            ping.connect(gain);
+            ping.start(start);
+            ping.stop(stop);
+
+            const sparkleGain = audioContext.createGain();
+            sparkleGain.gain.setValueAtTime(.0001, start);
+            sparkleGain.gain.exponentialRampToValueAtTime(.035, start + .004);
+            sparkleGain.gain.exponentialRampToValueAtTime(.0001, stop - .012);
+            sparkleGain.connect(audioContext.destination);
+
+            const sparkle = audioContext.createOscillator();
+            sparkle.type = "sine";
+            sparkle.frequency.setValueAtTime(frequency * 2, start);
+            sparkle.connect(sparkleGain);
+            sparkle.start(start);
+            sparkle.stop(stop);
           });
         } catch (_) {}
       }
