@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07090e">
+  <meta name="description" content="Wa-cha turns a rough idea into a clear, AI-actionable instruction and next action.">
+  <title>Wa-cha — Rough idea to ready action</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f7f8fb;
+      --muted: #aeb5c5;
+      --base: #07090e;
+      --surface: #10141d;
+      --surface-2: #171c28;
+      --line: #343b4c;
+      --cyan: #48e8ff;
+      --violet: #b675ff;
+      --amber: #ffbe45;
+      --green: #70f0a0;
+      --danger: #ff758e;
+      --radius: 22px;
+      --shadow: 0 20px 80px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: var(--base); }
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      overflow-x: hidden;
+      font-family: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(72,232,255,.13), transparent 34rem),
+        radial-gradient(circle at 92% 12%, rgba(182,117,255,.15), transparent 30rem),
+        var(--base);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, #000, transparent 82%);
+    }
+    button, input, textarea { font: inherit; }
+    button, label, input, textarea { -webkit-tap-highlight-color: transparent; }
+    button { min-height: 46px; }
+    a, button { touch-action: manipulation; }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+    ::selection { color: #05070a; background: var(--cyan); }
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      left: 12px;
+      top: 12px;
+      transform: translateY(-180%);
+      padding: 10px 14px;
+      color: #071014;
+      background: var(--cyan);
+      border-radius: 10px;
+      font-weight: 900;
+    }
+    .skip-link:focus { transform: none; }
+    .shell { width: min(1120px, 100%); margin: 0 auto; padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+    .masthead { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: clamp(22px, 5vw, 54px); }
+    .mast-actions { display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; min-width: 0; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      color: var(--cyan);
+      background: rgba(72,232,255,.07);
+      box-shadow: 0 0 0 5px rgba(72,232,255,.04), inset 0 0 18px rgba(72,232,255,.08);
+      font-weight: 950;
+    }
+    .brand-copy strong { display: block; letter-spacing: .12em; }
+    .brand-copy small { display: block; margin-top: 2px; color: var(--muted); font-size: .72rem; letter-spacing: .07em; }
+    .privacy-pill { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 7px 11px; border: 1px solid #335343; border-radius: 999px; color: var(--green); background: rgba(112,240,160,.06); font-size: .76rem; font-weight: 850; letter-spacing: .06em; white-space: nowrap; }
+    .privacy-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 12px currentColor; }
+    .wallet, .sound-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      border: 1px solid #66542a;
+      border-radius: 999px;
+      color: var(--amber);
+      background: rgba(255,190,69,.07);
+      font: 850 .72rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .04em;
+    }
+    .wallet { min-width: 68px; padding: 8px 10px; }
+    .wallet.bump { animation: walletBump .32s ease both; }
+    .sound-toggle { width: 36px; padding: 0; cursor: pointer; }
+    .sound-toggle[aria-pressed="false"] { color: var(--muted); border-color: var(--line); background: rgba(255,255,255,.03); }
+    .qoin-field { position: fixed; z-index: 4; inset: 0; overflow: hidden; pointer-events: none; }
+    .qoin {
+      --qoin-color: var(--cyan);
+      --qoin-size: 1rem;
+      --float-x: 9px;
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      color: var(--qoin-color);
+      background: transparent;
+      filter: drop-shadow(0 0 7px color-mix(in srgb, var(--qoin-color), transparent 35%));
+      font: 950 var(--qoin-size)/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      text-shadow: 0 0 11px currentColor;
+      cursor: pointer;
+      pointer-events: auto;
+      animation: qoinFloat var(--float-time, 5s) ease-in-out var(--float-delay, 0s) infinite alternate;
+    }
+    .qoin[data-color="1"] { --qoin-color: var(--cyan); }
+    .qoin[data-color="2"] { --qoin-color: var(--violet); }
+    .qoin[data-color="3"] { --qoin-color: var(--amber); }
+    .qoin[data-size="1"] { --qoin-size: .82rem; opacity: .78; }
+    .qoin[data-size="2"] { --qoin-size: 1.2rem; }
+    .qoin[data-size="3"] { --qoin-size: 1.62rem; }
+    .qoin:hover { text-shadow: 0 0 18px currentColor; }
+    .qoin.collecting { animation: qoinCollect .52s cubic-bezier(.18,.82,.2,1) both; }
+    .hero { max-width: 800px; margin-bottom: clamp(24px, 5vw, 48px); }
+    .eyebrow { margin: 0 0 10px; color: var(--amber); font-size: .78rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 13ch; font-size: clamp(2.45rem, 8vw, 6.6rem); line-height: .9; letter-spacing: -.065em; }
+    .gradient-text { color: transparent; background: linear-gradient(100deg, var(--cyan), var(--violet) 53%, var(--amber)); background-clip: text; -webkit-background-clip: text; }
+    .hero p:last-child { max-width: 62ch; margin: 18px 0 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.22rem); line-height: 1.58; }
+    .workbench {
+      position: relative;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      min-height: 590px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(16,20,29,.93);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .step-rail { padding: 26px 20px; border-right: 1px solid var(--line); background: rgba(7,9,14,.48); }
+    .step-rail p { margin: 0 0 18px; color: var(--muted); font-size: .7rem; font-weight: 850; letter-spacing: .16em; text-transform: uppercase; }
+    .steps { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .step-indicator { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 10px; min-height: 48px; padding: 7px; border: 1px solid transparent; border-radius: 12px; color: var(--muted); font-size: .87rem; font-weight: 750; }
+    .step-indicator span:first-child { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 50%; font-size: .72rem; }
+    .step-indicator[aria-current="step"] { color: var(--ink); border-color: rgba(72,232,255,.32); background: rgba(72,232,255,.07); }
+    .step-indicator[aria-current="step"] span:first-child { color: #031014; border-color: var(--cyan); background: var(--cyan); }
+    .step-indicator.done { color: var(--green); }
+    .panel-wrap { position: relative; padding: clamp(23px, 5vw, 52px); }
+    .panel { max-width: 730px; animation: enter .34s ease both; }
+    .panel[hidden] { display: none; }
+    .panel h2 { margin: 0 0 9px; font-size: clamp(1.65rem, 4vw, 2.65rem); line-height: 1.05; letter-spacing: -.035em; }
+    .lede { max-width: 60ch; margin: 0 0 26px; color: var(--muted); line-height: 1.55; }
+    .counter { float: right; color: var(--muted); font-size: .74rem; }
+    label.field { display: block; margin-top: 18px; color: var(--ink); font-weight: 820; }
+    label.field small { display: block; margin: 7px 0 9px; color: var(--muted); font-size: .77rem; font-weight: 530; line-height: 1.4; }
+    textarea, input[type="text"] {
+      width: 100%;
+      min-height: 48px;
+      padding: 14px 15px;
+      border: 1px solid #475064;
+      border-radius: 13px;
+      color: var(--ink);
+      background: #0b0e15;
+      resize: vertical;
+    }
+    textarea { min-height: 136px; line-height: 1.5; }
+    textarea.compact { min-height: 88px; }
+    textarea:hover, input[type="text"]:hover { border-color: #6d7892; }
+    textarea:focus, input[type="text"]:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(72,232,255,.1); }
+    .prompt-starter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); font-size: .78rem; }
+    .text-button { min-height: 40px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 10px; color: var(--cyan); background: transparent; font-weight: 760; cursor: pointer; }
+    .gap-audit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 20px 0 4px; }
+    .gap-card { min-height: 78px; padding: 13px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-2); }
+    .gap-card strong { display: flex; align-items: center; gap: 7px; font-size: .82rem; }
+    .gap-card strong::before { content: "?"; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #1a0c00; background: var(--amber); font-size: .7rem; }
+    .gap-card small { display: block; margin-top: 6px; color: var(--muted); line-height: 1.35; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+    .span-2 { grid-column: 1 / -1; }
+    .format-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .format-option { position: relative; }
+    .format-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .format-option label { display: block; height: 100%; min-height: 116px; padding: 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); cursor: pointer; }
+    .format-option label strong { display: block; margin-bottom: 7px; }
+    .format-option label small { color: var(--muted); line-height: 1.4; }
+    .format-option input:checked + label { border-color: var(--cyan); background: rgba(72,232,255,.08); box-shadow: inset 0 0 0 1px var(--cyan); }
+    .format-option input:focus-visible + label { outline: 3px solid var(--amber); outline-offset: 3px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-width: 130px; min-height: 48px; padding: 11px 18px; border: 1px solid transparent; border-radius: 12px; font-weight: 900; cursor: pointer; }
+    .button.primary { color: #041014; background: var(--cyan); box-shadow: 0 9px 28px rgba(72,232,255,.14); }
+    .button.primary:hover { background: #80f0ff; }
+    .button.secondary { color: var(--ink); border-color: var(--line); background: transparent; }
+    .button.secondary:hover { border-color: var(--violet); background: rgba(182,117,255,.07); }
+    .button:disabled { opacity: .45; cursor: not-allowed; }
+    .error { min-height: 20px; margin: 12px 0 0; color: var(--danger); font-size: .82rem; font-weight: 720; }
+    .result-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .result-top h2 { margin: 0; }
+    .ready-badge { padding: 7px 10px; border: 1px solid #396749; border-radius: 999px; color: var(--green); background: rgba(112,240,160,.07); font-size: .7rem; font-weight: 900; letter-spacing: .08em; white-space: nowrap; }
+    .output {
+      max-height: 430px;
+      margin: 0;
+      overflow: auto;
+      padding: clamp(15px, 3vw, 24px);
+      border: 1px solid #46516a;
+      border-radius: 15px;
+      color: #eef9ff;
+      background: #080b11;
+      font: 600 .86rem/1.62 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .next-action { margin-top: 14px; padding: 15px 17px; border-left: 4px solid var(--amber); border-radius: 0 13px 13px 0; background: rgba(255,190,69,.08); }
+    .next-action strong { display: block; margin-bottom: 5px; color: var(--amber); font-size: .73rem; letter-spacing: .11em; text-transform: uppercase; }
+    .next-action p { margin: 0; line-height: 1.45; }
+    .status { min-height: 21px; margin: 13px 0 0; color: var(--green); font-size: .8rem; font-weight: 780; }
+    .view-lab {
+      position: fixed;
+      z-index: 30;
+      left: 50%;
+      bottom: max(10px, env(safe-area-inset-bottom));
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      max-width: calc(100vw - 18px);
+      padding: 6px;
+      border: 1px solid #4a5368;
+      border-radius: 999px;
+      background: rgba(8,11,17,.94);
+      box-shadow: 0 12px 42px rgba(0,0,0,.58);
+      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+    }
+    .view-lab > strong { padding: 0 7px; color: var(--muted); font-size: .65rem; letter-spacing: .12em; white-space: nowrap; }
+    .layout-button {
+      min-height: 38px;
+      padding: 7px 11px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--ink);
+      background: transparent;
+      font-size: .72rem;
+      font-weight: 850;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .layout-button:hover, .layout-button[aria-pressed="true"] { color: #061014; background: var(--cyan); }
+    .preview-stage {
+      position: fixed;
+      z-index: 60;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+      background: rgba(3,5,9,.94);
+      backdrop-filter: blur(22px);
+    }
+    .preview-stage[hidden] { display: none; }
+    .preview-toolbar { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 0 0 10px; }
+    .preview-toolbar strong { margin-right: 5px; color: var(--amber); font-size: .69rem; letter-spacing: .12em; }
+    .preview-close { color: var(--danger); border-color: #67313c; }
+    .preview-canvas { display: grid; min-width: 0; min-height: 0; place-items: center; overflow: hidden; }
+    .device-frame {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #697287;
+      border-radius: 24px;
+      background: var(--base);
+      box-shadow: 0 24px 90px rgba(0,0,0,.72), 0 0 0 7px rgba(255,255,255,.035);
+    }
+    .device-frame[data-layout="watch"] { border-radius: 50%; }
+    .device-frame iframe { position: absolute; inset: 0 auto auto 0; border: 0; background: var(--base); transform-origin: top left; }
+    .embedded .view-lab, .embedded .preview-stage { display: none !important; }
+    .previewing { overflow: hidden; }
+    footer { display: flex; justify-content: space-between; gap: 18px; padding: 22px 4px 0; color: #7f8799; font-size: .73rem; line-height: 1.5; }
+    footer strong { color: var(--muted); }
+    @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes qoinFloat { from { transform: translate3d(calc(var(--float-x) * -1), -7px, 0) rotate(-9deg); } to { transform: translate3d(var(--float-x), 11px, 0) rotate(12deg); } }
+    @keyframes qoinCollect {
+      0% { opacity: 1; transform: scale(1) rotate(0deg); }
+      42% { opacity: 1; transform: scale(3) rotate(260deg); }
+      100% { opacity: 0; transform: translate3d(var(--to-x), var(--to-y), 0) scale(.08) rotate(720deg); }
+    }
+    @keyframes walletBump { 45% { color: #071014; background: var(--amber); box-shadow: 0 0 24px rgba(255,190,69,.72); transform: scale(1.1); } }
+    @media (max-width: 760px) {
+      .workbench { display: block; min-height: 0; }
+      .step-rail { padding: 12px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .step-rail p { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .steps { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+      .step-indicator { display: grid; grid-template-columns: 1fr; justify-items: center; min-height: 42px; padding: 5px 2px; font-size: .62rem; text-align: center; }
+      .step-indicator span:first-child { width: 24px; height: 24px; }
+      .panel-wrap { padding: 24px 18px; }
+      .form-grid, .format-grid { grid-template-columns: 1fr; }
+      .span-2 { grid-column: auto; }
+    }
+    @media (max-width: 430px) {
+      .masthead { margin-bottom: 26px; }
+      .brand-copy small { display: none; }
+      .privacy-pill { display: none; }
+      .hero p:last-child { font-size: .98rem; }
+      .gap-audit { grid-template-columns: 1fr; }
+      .actions .button { flex: 1 1 125px; }
+      footer { display: block; }
+      footer span { display: block; margin-top: 5px; }
+      .view-lab > strong { display: none; }
+      .layout-button { padding-inline: 10px; }
+    }
+    @media (max-width: 260px) {
+      .shell { padding: 8px; }
+      .brand-mark { width: 36px; height: 36px; flex-basis: 36px; }
+      .brand-copy strong { font-size: .78rem; }
+      .wallet { min-width: 56px; padding: 7px; font-size: .62rem; }
+      h1 { font-size: 2rem; }
+      .hero p:last-child { font-size: .82rem; }
+      .step-indicator { font-size: 0; }
+      .step-indicator span:first-child { font-size: .62rem; }
+      .panel-wrap { padding: 17px 12px; }
+      .panel h2 { font-size: 1.3rem; }
+      .lede { font-size: .78rem; }
+      .actions { display: grid; }
+      .button { width: 100%; min-width: 0; padding: 9px; font-size: .78rem; }
+    }
+    @media (max-width: 320px), (max-height: 420px) and (max-width: 460px) {
+      body {
+        display: grid;
+        place-items: start center;
+        min-height: 100svh;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 42%, #121a28, var(--base) 70%);
+      }
+      body::before { display: none; }
+      .shell { display: grid; place-items: start center; width: 100%; padding: 0; }
+      .masthead { position: fixed; z-index: 10; top: 7%; left: 50%; width: auto; margin: 0; transform: translateX(-50%); }
+      .brand, .privacy-pill, .hero, footer { display: none; }
+      .mast-actions { gap: 5px; }
+      .wallet, .sound-toggle { min-height: 30px; height: 30px; }
+      .wallet { min-width: 52px; padding: 5px 7px; font-size: .58rem; }
+      .sound-toggle { width: 30px; font-size: .68rem; }
+      .workbench {
+        width: 100vmin;
+        height: 100vmin;
+        min-height: 0;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 50%;
+        box-shadow: inset 0 0 46px rgba(72,232,255,.08), var(--shadow);
+      }
+      .step-rail {
+        position: absolute;
+        z-index: 3;
+        top: 18%;
+        left: 21%;
+        width: 58%;
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+      .steps { gap: 2px; }
+      .step-indicator { min-height: 21px; padding: 0; }
+      .step-indicator span:first-child { width: 18px; height: 18px; font-size: .48rem; }
+      .panel-wrap {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        overscroll-behavior: contain;
+        padding: 30% 16% 17%;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .panel-wrap::-webkit-scrollbar { display: none; }
+      .panel { width: 100%; max-width: none; padding-bottom: 18%; }
+      .panel h2 { font-size: clamp(.96rem, 7vmin, 1.28rem); letter-spacing: -.02em; }
+      .lede { margin-bottom: 10px; font-size: clamp(.62rem, 3.2vmin, .76rem); line-height: 1.32; }
+      .counter, .prompt-starter, .gap-audit, label.field small { display: none; }
+      label.field { margin-top: 9px; font-size: clamp(.62rem, 3.2vmin, .76rem); }
+      textarea, input[type="text"] { min-height: 44px; padding: 9px; border-radius: 9px; font-size: 16px; }
+      textarea { min-height: 78px; }
+      textarea.compact { min-height: 56px; }
+      .format-grid { gap: 7px; }
+      .format-option label { min-height: 54px; padding: 8px 9px; border-radius: 9px; }
+      .format-option label strong { margin: 0; font-size: .68rem; }
+      .format-option label small { display: none; }
+      .actions { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 12px; }
+      .button { min-height: 44px; padding: 8px; border-radius: 9px; font-size: .68rem; }
+      .error { min-height: 12px; margin-top: 5px; font-size: .6rem; }
+      .result-top { margin-bottom: 8px; }
+      .result-top .eyebrow, .ready-badge { display: none; }
+      .output { max-height: 40vmin; padding: 9px; border-radius: 9px; font-size: .58rem; line-height: 1.38; }
+      .next-action { margin-top: 7px; padding: 8px 9px; }
+      .next-action strong { font-size: .52rem; }
+      .next-action p { font-size: .62rem; line-height: 1.3; }
+      .status { min-height: 10px; margin-top: 5px; font-size: .56rem; }
+      .qoin { width: 34px; height: 34px; }
+      .view-lab { bottom: 3%; max-width: 74%; padding: 3px; gap: 1px; }
+      .layout-button { min-height: 32px; padding: 5px 7px; font-size: .58rem; }
+    }
+    @media (prefers-contrast: more) {
+      :root { --muted: #d6d9e1; --line: #697287; }
+      .workbench, textarea, input[type="text"], .output { border-width: 2px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+      .qoin.collecting { opacity: 0; }
+    }
+    @media print {
+      body { background: #fff; color: #000; }
+      body::before, .qoin-field, .view-lab, .preview-stage, .masthead, .hero, .step-rail, .actions, footer { display: none !important; }
+      .shell, .panel-wrap { width: 100%; padding: 0; }
+      .workbench { display: block; border: 0; box-shadow: none; background: transparent; }
+      .panel[hidden] { display: none !important; }
+      .output { max-height: none; color: #000; background: #fff; border-color: #000; }
+      .next-action { color: #000; background: #fff; border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#workbench">Skip to workbench</a>
+  <div class="qoin-field" id="qoin-field" aria-label="Collectible ASCII Qoins"></div>
+  <div class="shell">
+    <header class="masthead" aria-label="Wa-cha header">
+      <div class="brand" aria-label="Wa-cha">
+        <span class="brand-mark" aria-hidden="true">W!</span>
+        <span class="brand-copy"><strong>WA-CHA</strong><small>ROUGH → READY</small></span>
+      </div>
+      <span class="mast-actions">
+        <span class="privacy-pill">PRIVATE WORKBENCH</span>
+        <span class="wallet" id="wallet" aria-live="polite" aria-label="Qoin wallet">Q 000</span>
+        <button class="sound-toggle" id="sound-toggle" type="button" aria-label="Turn Qoin sounds off" aria-pressed="true">♪</button>
+      </span>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow">Clarity engine · v3</p>
+      <h1 id="hero-title">Your rough idea, <span class="gradient-text">ready to act on.</span></h1>
+      <p>Wa-cha catches the missing pieces, defines what “done” means, and turns your thought into a complete instruction—with one clear next move.</p>
+    </section>
+
+    <main id="workbench" class="workbench">
+      <nav class="step-rail" aria-label="Creation progress">
+        <p>Build path</p>
+        <ol class="steps">
+          <li class="step-indicator" data-step-indicator="1" aria-current="step"><span>01</span><span>Idea</span></li>
+          <li class="step-indicator" data-step-indicator="2"><span>02</span><span>Gaps</span></li>
+          <li class="step-indicator" data-step-indicator="3"><span>03</span><span>Success</span></li>
+          <li class="step-indicator" data-step-indicator="4"><span>04</span><span>Format</span></li>
+          <li class="step-indicator" data-step-indicator="5"><span>05</span><span>Ready</span></li>
+        </ol>
+      </nav>
+
+      <div class="panel-wrap" id="panels">
+        <section class="panel" id="panel-1" data-panel="1" aria-labelledby="step-1-title">
+          <span class="counter" id="idea-count">0 / 1200</span>
+          <h2 id="step-1-title" tabindex="-1">Start rough.</h2>
+          <p class="lede">Say what you want in your own words. Fragments, shorthand, and unfinished thoughts are welcome.</p>
+          <label class="field" for="idea">What are you trying to make, solve, decide, or understand?</label>
+          <textarea id="idea" maxlength="1200" autocomplete="off" placeholder="Example: Build a simple mobile tool that helps people find the next free meal nearby—not another giant directory."></textarea>
+          <div class="prompt-starter"><span>Blank page?</span><button class="text-button" type="button" id="example-button">Load a real example</button></div>
+          <p class="error" id="error-1" role="alert"></p>
+          <div class="actions"><button class="button primary" type="button" data-next>Find the gaps <span aria-hidden="true">→</span></button></div>
+        </section>
+
+        <section class="panel" id="panel-2" data-panel="2" aria-labelledby="step-2-title" hidden>
+          <h2 id="step-2-title" tabindex="-1">Expose the gaps.</h2>
+          <p class="lede">These are the places an AI would otherwise guess. Add what you know; leave the rest clearly unresolved.</p>
+          <div class="gap-audit" id="gap-audit" aria-live="polite"></div>
+          <div class="form-grid">
+            <label class="field" for="audience">Who is it for?<small id="audience-hint">Name the person who should benefit first.</small><input id="audience" type="text" maxlength="180" placeholder="e.g. a first-time visitor using one hand"></label>
+            <label class="field" for="constraints">Limits to respect<small>Time, budget, device, access, tools, or legal limits.</small><input id="constraints" type="text" maxlength="240" placeholder="e.g. $0, works on a phone, one afternoon"></label>
+            <label class="field span-2" for="must-keep">Must keep / must avoid<small>Anything that makes the idea recognizable—or would ruin it.</small><textarea class="compact" id="must-keep" maxlength="400" placeholder="Must keep… / Must avoid…"></textarea></label>
+            <label class="field span-2" for="unknowns">Still unknown<small>Write “none” or list decisions the final instruction must ask about instead of inventing.</small><input id="unknowns" type="text" maxlength="260" placeholder="e.g. exact data source and launch date"></label>
+          </div>
+          <p class="error" id="error-2" role="alert"></p>
+          <div class="actions"><button class="button secondary" type="button" data-back>Back</button><button class="button primary" type="button" data-next>Define success <span aria-hidden="true">→</span></button></div>
+        </section>
+
+        <section class="panel" id="panel-3" data-panel="3" aria-labelledby="step-3-title" hidden>
+          <h2 id="step-3-title" tabindex="-1">Make “done” visible.</h2>
+          <p class="lede">A concrete finish line turns a good intention into something you can inspect.</p>
+          <label class="field" for="success">What must be true when this succeeds?<small>Describe an observable result, not a feeling.</small><textarea id="success" maxlength="600" placeholder="A new user can complete the main task on a phone without help, and receives one clear next action."></textarea></label>
+          <label class="field" for="evidence">How will you check it?<small>A test, measurement, review, demonstration, or proof.</small><textarea class="compact" id="evidence" maxlength="400" placeholder="Test the complete path at small mobile and desktop widths; record pass/fail and fix blockers."></textarea></label>
+          <p class="error" id="error-3" role="alert"></p>
+          <div class="actions"><button class="button secondary" type="button" data-back>Back</button><button class="button primary" type="button" data-next>Choose format <span aria-hidden="true">→</span></button></div>
+        </section>
+
+        <section class="panel" id="panel-4" data-panel="4" aria-labelledby="step-4-title" hidden>
+          <h2 id="step-4-title" tabindex="-1">Choose the handoff.</h2>
+          <p class="lede">Pick the shape that best matches what you will do next.</p>
+          <fieldset style="border:0;padding:0;margin:0"><legend class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Output format</legend>
+            <div class="format-grid">
+              <div class="format-option"><input type="radio" name="format" id="format-prompt" value="prompt" checked><label for="format-prompt"><strong>AI-ready prompt</strong><small>A complete instruction to paste into an AI and run.</small></label></div>
+              <div class="format-option"><input type="radio" name="format" id="format-brief" value="brief"><label for="format-brief"><strong>Action brief</strong><small>A plain-language handoff for a person or team.</small></label></div>
+              <div class="format-option"><input type="radio" name="format" id="format-spec" value="spec"><label for="format-spec"><strong>Build spec</strong><small>Requirements and acceptance checks for implementation.</small></label></div>
+              <div class="format-option"><input type="radio" name="format" id="format-line" value="line"><label for="format-line"><strong>One-line command</strong><small>The densest usable version for fast execution.</small></label></div>
+            </div>
+          </fieldset>
+          <p class="error" id="error-4" role="alert"></p>
+          <div class="actions"><button class="button secondary" type="button" data-back>Back</button><button class="button primary" type="button" id="generate">Build my instruction <span aria-hidden="true">✦</span></button></div>
+        </section>
+
+        <section class="panel" id="panel-5" data-panel="5" aria-labelledby="step-5-title" hidden>
+          <div class="result-top"><div><p class="eyebrow">Wa-cha complete</p><h2 id="step-5-title" tabindex="-1">Ready to use.</h2></div><span class="ready-badge">CHECKED</span></div>
+          <pre class="output" id="output" tabindex="0"></pre>
+          <aside class="next-action" aria-labelledby="next-label"><strong id="next-label">Single clearest next action</strong><p id="next-action"></p></aside>
+          <p class="status" id="status" aria-live="polite"></p>
+          <div class="actions"><button class="button primary" type="button" id="copy">Copy instruction</button><button class="button secondary" type="button" id="download">Download .txt</button><button class="button secondary" type="button" data-back>Edit</button></div>
+        </section>
+      </div>
+    </main>
+
+    <footer><strong>Wa-cha!^*+ · Human intent stays in charge.</strong><span>Drafts remain in this browser. No external scripts, fonts, trackers, or data transfer.</span></footer>
+  </div>
+  <nav class="view-lab" id="view-lab" aria-label="Layout Lab">
+    <strong>LAYOUT LAB</strong>
+    <button class="layout-button" type="button" data-open-layout="watch" aria-pressed="false">○ Watch</button>
+    <button class="layout-button" type="button" data-open-layout="phone" aria-pressed="false">▯ Phone</button>
+    <button class="layout-button" type="button" data-open-layout="desktop" aria-pressed="false">▭ Desktop</button>
+  </nav>
+  <section class="preview-stage" id="preview-stage" role="dialog" aria-modal="true" aria-labelledby="preview-title" hidden>
+    <div class="preview-toolbar">
+      <strong id="preview-title">TEST VIEW</strong>
+      <button class="layout-button" type="button" data-switch-layout="watch" aria-pressed="false">○ Watch</button>
+      <button class="layout-button" type="button" data-switch-layout="phone" aria-pressed="false">▯ Phone</button>
+      <button class="layout-button" type="button" data-switch-layout="desktop" aria-pressed="false">▭ Desktop</button>
+      <button class="layout-button preview-close" id="preview-close" type="button">Exit preview</button>
+    </div>
+    <div class="preview-canvas" id="preview-canvas">
+      <div class="device-frame" id="device-frame" data-layout="phone">
+        <iframe id="preview-frame" title="Interactive Wa-cha layout preview"></iframe>
+      </div>
+    </div>
+  </section>
+  <script>
+    (() => {
+      "use strict";
+      const embedded = (() => {
+        try { return new URLSearchParams(location.search).get("embed") === "1" || window.self !== window.top; }
+        catch (_) { return false; }
+      })();
+      if (embedded) document.documentElement.classList.add("embedded");
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const fields = ["idea", "audience", "constraints", "must-keep", "unknowns", "success", "evidence"];
+      const state = { step: 1, output: "", nextAction: "" };
+      const qoinGlyphs = ["@", "*", "+", "?", "§", "¤", "∆", "&", "!"];
+      const layoutSpecs = {
+        watch: { width: 240, height: 240, label: "Watch · 240 × 240" },
+        phone: { width: 390, height: 844, label: "Phone · 390 × 844" },
+        desktop: { width: 1200, height: 750, label: "Desktop · 1200 × 750" }
+      };
+      let qoinCount = 0;
+      let soundOn = true;
+      let audioContext = null;
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let activeLayout = "phone";
+      let previewTrigger = null;
+
+      const clean = value => (value || "").trim().replace(/\s+/g, " ");
+      const value = id => clean($("#" + id).value);
+      const safe = (content, fallback = "Not specified — ask before acting.") => content || fallback;
+
+      function persist() {
+        const draft = { step: state.step };
+        fields.forEach(id => draft[id] = $("#" + id).value);
+        draft.format = $("input[name='format']:checked").value;
+        draft.qoinCount = qoinCount;
+        draft.soundOn = soundOn;
+        try { localStorage.setItem("wacha-private-draft-v1", JSON.stringify(draft)); } catch (_) {}
+      }
+
+      function restore() {
+        try {
+          const draft = JSON.parse(localStorage.getItem("wacha-private-draft-v1") || "null");
+          if (!draft) return;
+          fields.forEach(id => { if (typeof draft[id] === "string") $("#" + id).value = draft[id]; });
+          const selected = $("input[name='format'][value='" + (draft.format || "prompt") + "']");
+          if (selected) selected.checked = true;
+          if (Number.isFinite(draft.qoinCount)) qoinCount = Math.max(0, draft.qoinCount);
+          if (typeof draft.soundOn === "boolean") soundOn = draft.soundOn;
+        } catch (_) {}
+      }
+
+      function previewSource() {
+        const url = new URL(location.href);
+        url.searchParams.set("embed", "1");
+        url.hash = "";
+        return url.toString();
+      }
+
+      function sizePreview() {
+        const stage = $("#preview-stage");
+        if (!stage || stage.hidden) return;
+        const spec = layoutSpecs[activeLayout];
+        const canvas = $("#preview-canvas");
+        const frame = $("#device-frame");
+        const iframe = $("#preview-frame");
+        const availableWidth = Math.max(100, canvas.clientWidth - 20);
+        const availableHeight = Math.max(100, canvas.clientHeight - 20);
+        const scale = Math.min(1, availableWidth / spec.width, availableHeight / spec.height);
+        frame.dataset.layout = activeLayout;
+        frame.style.width = (spec.width * scale) + "px";
+        frame.style.height = (spec.height * scale) + "px";
+        iframe.style.width = spec.width + "px";
+        iframe.style.height = spec.height + "px";
+        iframe.style.transform = "scale(" + scale + ")";
+        $("#preview-title").textContent = spec.label;
+        $$('[data-switch-layout]').forEach(button => button.setAttribute("aria-pressed", String(button.dataset.switchLayout === activeLayout)));
+        $$('[data-open-layout]').forEach(button => button.setAttribute("aria-pressed", String(button.dataset.openLayout === activeLayout)));
+      }
+
+      function openPreview(layout, trigger) {
+        if (embedded || !layoutSpecs[layout]) return;
+        activeLayout = layout;
+        previewTrigger = trigger || document.activeElement;
+        const stage = $("#preview-stage");
+        stage.hidden = false;
+        document.body.classList.add("previewing");
+        $(".shell").inert = true;
+        $("#qoin-field").inert = true;
+        $("#view-lab").inert = true;
+        const iframe = $("#preview-frame");
+        if (!iframe.getAttribute("src")) iframe.src = previewSource();
+        sizePreview();
+        $("#preview-close").focus();
+      }
+
+      function closePreview() {
+        const stage = $("#preview-stage");
+        if (stage.hidden) return;
+        stage.hidden = true;
+        document.body.classList.remove("previewing");
+        $(".shell").inert = false;
+        $("#qoin-field").inert = false;
+        $("#view-lab").inert = false;
+        $$('[data-open-layout]').forEach(button => button.setAttribute("aria-pressed", "false"));
+        if (previewTrigger && previewTrigger.focus) previewTrigger.focus();
+      }
+
+      function qoinTone(index) {
+        if (!soundOn) return;
+        try {
+          const AudioCtor = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtor) return;
+          audioContext ||= new AudioCtor();
+          const now = audioContext.currentTime;
+          const gain = audioContext.createGain();
+          gain.gain.setValueAtTime(.0001, now);
+          gain.gain.exponentialRampToValueAtTime(.12, now + .012);
+          gain.gain.exponentialRampToValueAtTime(.0001, now + .19);
+          gain.connect(audioContext.destination);
+          [0, 1].forEach(part => {
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = part ? "triangle" : "square";
+            const base = 740 + (index % 3) * 95;
+            oscillator.frequency.setValueAtTime(base * (part ? 1.5 : 1), now);
+            oscillator.frequency.exponentialRampToValueAtTime(base * (part ? 2.1 : 1.55), now + .11);
+            oscillator.connect(gain);
+            oscillator.start(now + part * .035);
+            oscillator.stop(now + .2);
+          });
+        } catch (_) {}
+      }
+
+      function updateWallet(animate = true) {
+        const wallet = $("#wallet");
+        wallet.textContent = "Q " + String(qoinCount).padStart(3, "0");
+        wallet.setAttribute("aria-label", qoinCount + (qoinCount === 1 ? " Qoin collected" : " Qoins collected"));
+        if (!animate) return;
+        wallet.classList.remove("bump");
+        void wallet.offsetWidth;
+        wallet.classList.add("bump");
+      }
+
+      function qoinPosition(index) {
+        const mobile = innerWidth < 700;
+        if (mobile) {
+          const side = index % 2 === 0 ? 1 + (index % 3) * 3 : 86 + (index % 3) * 3;
+          return { left: Math.min(92, side), top: 12 + ((index * 13) % 78) };
+        }
+        const leftSide = index % 2 === 0;
+        return { left: leftSide ? 1 + (index % 3) * 4 : 91 + (index % 3) * 3, top: 9 + ((index * 17) % 80) };
+      }
+
+      function spawnQoin(index, delay = 0) {
+        const field = $("#qoin-field");
+        const button = document.createElement("button");
+        const position = qoinPosition(index);
+        const glyph = qoinGlyphs[index % qoinGlyphs.length];
+        button.type = "button";
+        button.className = "qoin";
+        button.dataset.color = String(index % 3 + 1);
+        button.dataset.size = String((index * 2) % 3 + 1);
+        button.textContent = glyph;
+        button.setAttribute("aria-label", "Collect " + glyph + " Qoin");
+        button.style.left = position.left + "%";
+        button.style.top = position.top + "%";
+        button.style.setProperty("--float-time", (4.1 + (index % 4) * .75) + "s");
+        button.style.setProperty("--float-delay", (-index * .4) + "s");
+        button.addEventListener("click", () => collectQoin(button, index));
+        setTimeout(() => field.append(button), delay);
+      }
+
+      function collectQoin(button, index) {
+        if (button.classList.contains("collecting")) return;
+        const from = button.getBoundingClientRect();
+        const wallet = $("#wallet").getBoundingClientRect();
+        button.style.setProperty("--to-x", (wallet.left + wallet.width / 2 - from.left - from.width / 2) + "px");
+        button.style.setProperty("--to-y", (wallet.top + wallet.height / 2 - from.top - from.height / 2) + "px");
+        button.classList.add("collecting");
+        button.disabled = true;
+        qoinTone(index);
+        qoinCount += 1;
+        updateWallet();
+        persist();
+        setTimeout(() => {
+          button.remove();
+          spawnQoin((index + qoinCount + 3) % qoinGlyphs.length, 900);
+        }, 560);
+      }
+
+      function showStep(step, focus = true) {
+        state.step = Math.max(1, Math.min(5, step));
+        $$('[data-panel]').forEach(panel => panel.hidden = Number(panel.dataset.panel) !== state.step);
+        $$('[data-step-indicator]').forEach(item => {
+          const number = Number(item.dataset.stepIndicator);
+          item.classList.toggle("done", number < state.step);
+          if (number === state.step) item.setAttribute("aria-current", "step");
+          else item.removeAttribute("aria-current");
+        });
+        if (focus) {
+          const heading = $("#panel-" + state.step + " h2");
+          requestAnimationFrame(() => heading && heading.focus({ preventScroll: true }));
+          $("#workbench").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+        }
+        if (state.step === 2) renderGapAudit();
+        persist();
+      }
+
+      function detectGaps() {
+        const idea = value("idea").toLowerCase();
+        return [
+          { label: "Audience", found: /(for|user|people|reader|customer|visitor|community|team|child|adult)/.test(idea), hint: "Who benefits first?" },
+          { label: "Limits", found: /(budget|\$|day|week|month|mobile|phone|desktop|without|only|limit|deadline|private)/.test(idea), hint: "What time, money, tools, or access limits apply?" },
+          { label: "Boundaries", found: /(must|avoid|keep|never|do not|don't|preserve|without)/.test(idea), hint: "What must stay—and what must not happen?" },
+          { label: "Proof", found: /(test|measure|verify|pass|complete|success|done|working|validate)/.test(idea), hint: "What observable result proves it worked?" }
+        ];
+      }
+
+      function renderGapAudit() {
+        const root = $("#gap-audit");
+        root.replaceChildren();
+        detectGaps().forEach(gap => {
+          const card = document.createElement("div");
+          card.className = "gap-card";
+          const title = document.createElement("strong");
+          title.textContent = gap.found ? gap.label + " mentioned" : gap.label + " is missing";
+          if (gap.found) {
+            title.style.color = "var(--green)";
+            title.style.setProperty("--gap-color", "var(--green)");
+          }
+          const hint = document.createElement("small");
+          hint.textContent = gap.found ? "Confirm or sharpen it below." : gap.hint;
+          card.append(title, hint);
+          root.append(card);
+        });
+        const idea = value("idea").toLowerCase();
+        const hint = $("#audience-hint");
+        hint.textContent = /(website|app|tool|spa)/.test(idea) ? "Start with the exact person completing the main task." : /(article|post|report)/.test(idea) ? "Name the reader and what they should understand or do." : "Name the person who should benefit first.";
+      }
+
+      function validate(step) {
+        const error = $("#error-" + step);
+        if (error) error.textContent = "";
+        if (step === 1 && value("idea").length < 8) {
+          error.textContent = "Give Wa-cha at least a few words to work with.";
+          $("#idea").focus();
+          return false;
+        }
+        if (step === 3 && value("success").length < 8) {
+          error.textContent = "Add one observable result so the instruction has a finish line.";
+          $("#success").focus();
+          return false;
+        }
+        return true;
+      }
+
+      function inferRole(idea) {
+        const text = idea.toLowerCase();
+        if (/(website|app|spa|code|software|build|interface)/.test(text)) return "Act as a product designer, accessibility specialist, and implementation engineer working as one accountable builder.";
+        if (/(article|post|report|write|story|publish)/.test(text)) return "Act as an exacting editor, researcher, and audience-aware writer.";
+        if (/(research|compare|investigate|audit|evidence)/.test(text)) return "Act as an independent researcher, evidence auditor, and clear technical communicator.";
+        if (/(plan|business|launch|sell|market)/.test(text)) return "Act as a practical strategist, operator, and red-team reviewer.";
+        return "Act as the minimum-sufficient team of specialists required to complete this outcome accurately.";
+      }
+
+      function promptOutput(data) {
+        return `MISSION\n${data.idea}\n\nROLE\n${inferRole(data.idea)}\n\nINTENDED USER\n${safe(data.audience)}\n\nCONSTRAINTS\n${safe(data.constraints)}\n\nPRESERVE / AVOID\n${safe(data.mustKeep)}\n\nDEFINITION OF SUCCESS\n${data.success}\n\nVERIFICATION\n${safe(data.evidence, "Inspect the finished result against every stated success condition; report pass/fail and repair failures before handoff.")}\n\nUNRESOLVED DECISIONS\n${safe(data.unknowns, "None stated. Identify any material ambiguity before execution and do not silently invent it.")}\n\nEXECUTION STANDARD\n1. Restate the exact intended outcome in one sentence.\n2. Identify material assumptions, conflicts, missing inputs, and risks.\n3. Resolve what can be safely resolved; ask only about choices that would materially change the result.\n4. Produce the complete usable deliverable—not merely an outline or advice.\n5. Test the result against the constraints and success definition.\n6. Fix blocking failures, label anything unverified, and return the finished result.\n7. End with the single clearest next action.\n\nGUARDRAILS\nPreserve the source intent. Distinguish verified facts, reasonable estimates, unknowns, and blockers. Never claim execution, testing, publication, or proof that did not occur.`;
+      }
+
+      function briefOutput(data) {
+        return `WA-CHA ACTION BRIEF\n\nOUTCOME\n${data.idea}\n\nWHO IT SERVES\n${safe(data.audience)}\n\nOPERATING LIMITS\n${safe(data.constraints)}\n\nNON-NEGOTIABLES\n${safe(data.mustKeep)}\n\nDONE MEANS\n${data.success}\n\nCHECK\n${safe(data.evidence)}\n\nOPEN DECISIONS\n${safe(data.unknowns, "No open decisions were named. Surface any material unknown before work begins.")}\n\nHANDOFF\nOwn the outcome from first action through verified completion. Preserve intent, expose assumptions, deliver the usable result, repair failed checks, and finish with one next action.`;
+      }
+
+      function specOutput(data) {
+        return `WA-CHA IMPLEMENTATION SPEC\n\n1. OBJECTIVE\n${data.idea}\n\n2. PRIMARY USER\n${safe(data.audience)}\n\n3. REQUIREMENTS\n- Respect: ${safe(data.constraints)}\n- Preserve/avoid: ${safe(data.mustKeep)}\n- Do not invent: ${safe(data.unknowns)}\n\n4. ACCEPTANCE CRITERIA\n- Primary criterion: ${data.success}\n- Verification method: ${safe(data.evidence)}\n- No blocking interaction, access, or layout failure remains.\n- All unverified claims and unresolved dependencies are labeled.\n\n5. DELIVERY RULE\nBuild the smallest complete version that satisfies every acceptance criterion. Test it in the intended context, repair blockers, then provide the finished artifact and the single highest-value next action.`;
+      }
+
+      function lineOutput(data) {
+        return `Complete: ${data.idea} | USER: ${safe(data.audience)} | LIMITS: ${safe(data.constraints)} | KEEP/AVOID: ${safe(data.mustKeep)} | SUCCESS: ${data.success} | VERIFY: ${safe(data.evidence)} | UNKNOWNS: ${safe(data.unknowns)} | Execute fully; expose assumptions; do not invent missing facts; test, repair, deliver the usable result, then state one next action.`;
+      }
+
+      function collect() {
+        return {
+          idea: value("idea"), audience: value("audience"), constraints: value("constraints"),
+          mustKeep: value("must-keep"), unknowns: value("unknowns"), success: value("success"),
+          evidence: value("evidence"), format: $("input[name='format']:checked").value
+        };
+      }
+
+      function generate() {
+        const data = collect();
+        const builders = { prompt: promptOutput, brief: briefOutput, spec: specOutput, line: lineOutput };
+        state.output = builders[data.format](data);
+        state.nextAction = data.unknowns && data.unknowns.toLowerCase() !== "none"
+          ? `Resolve the first open decision—“${data.unknowns.split(/[,;.]/)[0]}”—then use the instruction.`
+          : data.format === "prompt"
+            ? "Copy this instruction into the AI you want to use, attach any source material it needs, and run it."
+            : "Copy this handoff to the person or tool doing the work and begin with its first executable requirement.";
+        $("#output").textContent = state.output;
+        $("#next-action").textContent = state.nextAction;
+        $("#status").textContent = "";
+        showStep(5);
+      }
+
+      async function copyOutput() {
+        const text = state.output + "\n\nNEXT ACTION\n" + state.nextAction;
+        try {
+          await navigator.clipboard.writeText(text);
+          $("#status").textContent = "Copied. Your next move is highlighted above.";
+        } catch (_) {
+          const range = document.createRange();
+          range.selectNodeContents($("#output"));
+          const selection = getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          $("#status").textContent = "Selected. Choose Copy from your browser menu.";
+        }
+      }
+
+      function downloadOutput() {
+        const blob = new Blob([state.output + "\n\nNEXT ACTION\n" + state.nextAction], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "wa-cha-instruction.txt";
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(link.href), 0);
+        $("#status").textContent = "Downloaded wa-cha-instruction.txt.";
+      }
+
+      $$('[data-next]').forEach(button => button.addEventListener("click", () => { if (validate(state.step)) showStep(state.step + 1); }));
+      $$('[data-back]').forEach(button => button.addEventListener("click", () => showStep(state.step - 1)));
+      $("#generate").addEventListener("click", generate);
+      $("#copy").addEventListener("click", copyOutput);
+      $("#download").addEventListener("click", downloadOutput);
+      $$('[data-open-layout]').forEach(button => button.addEventListener("click", () => openPreview(button.dataset.openLayout, button)));
+      $$('[data-switch-layout]').forEach(button => button.addEventListener("click", () => {
+        activeLayout = button.dataset.switchLayout;
+        sizePreview();
+      }));
+      $("#preview-close").addEventListener("click", closePreview);
+      window.addEventListener("resize", sizePreview, { passive: true });
+      $("#sound-toggle").addEventListener("click", event => {
+        soundOn = !soundOn;
+        event.currentTarget.setAttribute("aria-pressed", String(soundOn));
+        event.currentTarget.setAttribute("aria-label", soundOn ? "Turn Qoin sounds off" : "Turn Qoin sounds on");
+        event.currentTarget.textContent = soundOn ? "♪" : "×";
+        if (soundOn) qoinTone(qoinCount);
+        persist();
+      });
+      $("#example-button").addEventListener("click", () => {
+        $("#idea").value = "Build a private, mobile-first tool that turns a rough idea into a clear AI-actionable instruction and one next action.";
+        $("#idea").dispatchEvent(new Event("input"));
+        $("#idea").focus();
+      });
+      $("#idea").addEventListener("input", event => { $("#idea-count").textContent = event.target.value.length + " / 1200"; persist(); });
+      fields.slice(1).forEach(id => $("#" + id).addEventListener("input", persist));
+      $$('input[name="format"]').forEach(input => input.addEventListener("change", persist));
+      document.addEventListener("keydown", event => {
+        if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+          event.preventDefault();
+          if (state.step < 4 && validate(state.step)) showStep(state.step + 1);
+          else if (state.step === 4) generate();
+          else if (state.step === 5) copyOutput();
+        }
+        if (event.key === "Escape" && !$("#preview-stage").hidden) {
+          event.preventDefault();
+          closePreview();
+        } else if (event.key === "Escape" && state.step > 1) showStep(state.step - 1);
+      });
+      $("#panels").addEventListener("touchstart", event => {
+        if (!event.touches[0]) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      }, { passive: true });
+      $("#panels").addEventListener("touchend", event => {
+        if (!event.changedTouches[0]) return;
+        const dx = event.changedTouches[0].clientX - touchStartX;
+        const dy = event.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) < 75 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+        if (dx > 0 && state.step > 1) showStep(state.step - 1);
+        if (dx < 0 && state.step < 4 && validate(state.step)) showStep(state.step + 1);
+      }, { passive: true });
+
+      restore();
+      $("#sound-toggle").setAttribute("aria-pressed", String(soundOn));
+      $("#sound-toggle").setAttribute("aria-label", soundOn ? "Turn Qoin sounds off" : "Turn Qoin sounds on");
+      $("#sound-toggle").textContent = soundOn ? "♪" : "×";
+      updateWallet(false);
+      qoinGlyphs.forEach((_, index) => spawnQoin(index, index * 90));
+      $("#idea-count").textContent = $("#idea").value.length + " / 1200";
+      showStep(1, false);
+    })();
+  </script>
+</body>
+</html>
