@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "scripts": {"test:release": "node tools/release-check.cjs"},
+  "devDependencies": {"playwright": "1.51.1"}
+}

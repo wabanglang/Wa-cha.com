@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-09-30T06:28:04.173568+00:00",
+  "requested_url": "https://wa-cha.com/",
+  "commit": "90a4a9a2116d357d60fb9d5c74cd989654f88f91",
+  "deploy_id": "unknown-not-accessible",
+  "deploy_id_evidence": "operator-supplied; independently confirm in host",
+  "expected_sha256": "8f6505368e07d9b5466c53d2ec1a3f5775235185b80b3c07f5f9184c05a3dc75",
+  "final_url": "https://www.wa-cha.com/",
+  "status": 200,
+  "actual_sha256": "07c13ecdf114da2778ddce5d3ac78ecb8ffcce2c25e23176236c9e40405191e8",
+  "exact_source_match": false,
+  "headers": {
+    "X-Content-Type-Options": {
+      "expected": "nosniff",
+      "actual": "nosniff",
+      "match": true
+    },
+    "Referrer-Policy": {
+      "expected": "no-referrer",
+      "actual": "strict-origin-when-cross-origin",
+      "match": false
+    },
+    "Permissions-Policy": {
+      "expected": "camera=(), microphone=(), geolocation=()",
+      "actual": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+      "match": false
+    },
+    "Content-Security-Policy": {
+      "expected": "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; img-src 'self' data:; media-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'",
+      "actual": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; upgrade-insecure-requests",
+      "match": false
+    }
+  },
+  "pass": false
+}

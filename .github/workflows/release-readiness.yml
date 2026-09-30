@@ -1,0 +1,51 @@
+name: Release readiness
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      production_url:
+        description: HTTPS production URL (optional; runs exact-source/header check)
+        required: false
+      deploy_id:
+        description: Host deploy ID (required with production URL; confirm mapping in host)
+        required: false
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: sha256sum -c SHA256SUMS.txt
+      - run: npm run test:release
+      - uses: actions/setup-python@v5
+        if: inputs.production_url != ''
+        with:
+          python-version: '3.12'
+      - name: Verify live production identity and headers
+        if: inputs.production_url != ''
+        env:
+          PRODUCTION_URL: ${{ inputs.production_url }}
+          DEPLOY_ID: ${{ inputs.deploy_id }}
+        run: |
+          test -n "$DEPLOY_ID"
+          python tools/production-check.py --url "$PRODUCTION_URL" --commit "$GITHUB_SHA" --deploy-id "$DEPLOY_ID"
+      - name: Run workflow against live production
+        if: inputs.production_url != ''
+        env:
+          RELEASE_URL: ${{ inputs.production_url }}
+          RELEASE_RESULTS_DIR: release-results/live
+        run: npm run test:release
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-evidence
+          path: release-results/
