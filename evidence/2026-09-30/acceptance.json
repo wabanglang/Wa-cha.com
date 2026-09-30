@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-09-30T06:36:13.063Z",
+  "commit": "90a4a9a2116d357d60fb9d5c74cd989654f88f91",
+  "source_sha256": "1725570c5492e43fab3009cc1ce0921ccd5b3456b11935b23e6231da00f9dfd4",
+  "working_tree_dirty": true,
+  "scope": "local source acceptance; Chromium synthetic keyboard/touch; not physical-device certification",
+  "url": "file:///workspace/scratch/94c78a6fde40/wa-cha-release/index.html",
+  "networking_disabled": true,
+  "checks": [
+    {
+      "name": "source checksum",
+      "pass": true
+    },
+    {
+      "name": "keyboard: watch: full Layout Lab workflow and four formats",
+      "pass": true
+    },
+    {
+      "name": "keyboard: phone: full Layout Lab workflow and four formats",
+      "pass": true
+    },
+    {
+      "name": "keyboard: desktop: full Layout Lab workflow and four formats",
+      "pass": true
+    },
+    {
+      "name": "touch: watch: full Layout Lab workflow and four formats",
+      "pass": true
+    },
+    {
+      "name": "touch: phone: full Layout Lab workflow and four formats",
+      "pass": true
+    },
+    {
+      "name": "touch: desktop: full Layout Lab workflow and four formats",
+      "pass": true
+    },
+    {
+      "name": "natural phone layout: validation, tab navigation, persistence, reduced motion",
+      "pass": true
+    }
+  ],
+  "browser": "134.0.6998.35",
+  "pass": true
+}
