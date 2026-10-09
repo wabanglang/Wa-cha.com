@@ -1,0 +1,22 @@
+name: RWAL evidence gate
+on:
+  workflow_dispatch:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run evaluator tests
+        run: python3 -m unittest discover -s rwal/tests -v
+      - name: Produce release ledger
+        if: always()
+        run: python3 rwal/gate.py rwal/evidence.json --out rwal/ledger.json
+      - name: Upload ledger
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rwal-defect-ledger
+          path: rwal/ledger.json
