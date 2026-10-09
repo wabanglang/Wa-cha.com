@@ -1,0 +1,20 @@
+{
+  "head_sha": "4952759ca26fc85416756c571543a81e04345c04",
+  "evidence": {
+    "ci_head": {
+      "status": "PASS",
+      "head_sha": "4952759ca26fc85416756c571543a81e04345c04",
+      "reference": "https://github.com/wabanglang/Wa-cha.com/actions/runs/36682073860"
+    },
+    "local_acceptance": {
+      "status": "UNKNOWN",
+      "note": "24 traversals described in PR; independently authenticated evidence not supplied"
+    }
+  },
+  "claims": [
+    {
+      "type": "release_ready",
+      "asserted": false
+    }
+  ]
+}

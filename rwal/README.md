@@ -1,0 +1,3 @@
+# RWAL evidence gate v0.1
+
+Fail-closed prototype for PR #2. Run: `python3 -m unittest discover -s rwal/tests -v` then `python3 rwal/gate.py rwal/evidence.json --out rwal/ledger.json`. Exit 1 means blocked, not tool failure. The evidence snapshot refers to PR #2, not this new branch's commit. **This is not an authenticated deployment check.** PASS references are self-reported; a trusted collector must authenticate GitHub, Netlify, HTML hashes, headers, workflows and manual signoffs before release authorization. Do not merge, deploy, or claim production identity based solely on this gate. The CI job is expected to fail closed until evidence is completed.
