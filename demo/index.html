@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>WA-CHA — Tatooine v52 · Assembly Lock</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#090e1a}body{display:grid;place-items:center;min-height:100svh;padding:clamp(5px,1.8vw,18px);font-family:system-ui,-apple-system,sans-serif}.game{position:relative;width:min(100%,980px);isolation:isolate}.choice{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}.stage{position:relative;aspect-ratio:16 / 10;width:100%;min-height:340px;max-height:620px;overflow:hidden;border-radius:clamp(12px,3vw,28px);border:1px solid #efb97b88;background:radial-gradient(circle at 77% 19%,#fff5c1 0 3.5%,#ffe0a2 3.7% 5.1%,transparent 5.2%),radial-gradient(circle at 84% 12%,#fff5d3 0 2%,transparent 2.2%),linear-gradient(to bottom,#34345f 0%,#90627f 32%,#bd8068 59%,#e3a36c 83%,#c88a59 100%);box-shadow:inset 0 0 70px #321f3857,0 14px 44px #0008}.stage:before{content:"";position:absolute;left:-5%;bottom:12%;width:110%;height:38%;background:#be8559;clip-path:polygon(0 83%,12% 60%,22% 65%,34% 42%,46% 67%,57% 50%,71% 74%,85% 35%,100% 65%,100% 100%,0 100%)}.stage:after{content:"";position:absolute;left:0;bottom:13%;width:100%;height:3px;background:#f1c08b55;box-shadow:0 10px 30px 6px #f4d6a431}.dunes{position:absolute;inset:auto 0 0;height:16%;background:#aa674d;clip-path:polygon(0 44%,15% 16%,36% 45%,55% 22%,79% 57%,100% 31%,100% 100%,0 100%)}.ridge{position:absolute;bottom:16%;width:17%;height:16%;left:47%;background:linear-gradient(120deg,#946452,#644d57);clip-path:polygon(0 100%,32% 20%,53% 40%,68% 7%,100% 100%);filter:drop-shadow(6px 3px 6px #3e2b36)}.arch{position:absolute;bottom:16%;left:32%;width:12%;height:19%;background:#644b59;clip-path:polygon(0 100%,0 11%,23% 0,100% 0,100% 100%,70% 100%,70% 29%,25% 29%,25% 100%);opacity:.8}.lane{position:absolute;z-index:4;left:8.2%;bottom:16%;height:116px;width:11.111111%;overflow:visible}.lane:before{content:"";position:absolute;left:-5px;right:-5px;bottom:-5px;border-bottom:1px solid #f6e3ce55}.runner{position:absolute;bottom:0;left:0;width:100%;height:116px;animation:normalizedStride 3s cubic-bezier(.42,0,.58,1) infinite;will-change:transform;transform:translate3d(0,0,0)}.avatar{display:block;width:64px;height:116px;overflow:visible;filter:drop-shadow(0 7px 3px #21172169)}.pose{transform-origin:32px 104px;animation:crouch 4.7s ease-in-out infinite}.leg-l,.leg-r{animation:none;transform:none}.arm{transform-origin:39px 47px;animation:recoil .36s ease-in-out infinite alternate}.shot{pointer-events:none}.beam{opacity:0;animation:flight 6s linear infinite;animation-delay:var(--delay)}.flash{opacity:0;animation:flash 6s steps(1,end) infinite;animation-delay:var(--delay)}.enemy{position:absolute;z-index:4;right:9%;bottom:16%;width:52px;height:95px;animation:enemySway 2.3s ease-in-out infinite;filter:drop-shadow(0 4px 4px #0007)}.enemy svg{display:block;width:100%;height:100%}.enemy-shot{position:absolute;z-index:5;right:calc(9% + 46px);bottom:calc(16% + 48px);width:17px;height:4px;border-radius:6px;background:#ff6576;box-shadow:0 0 10px #ff6576;animation:enemyFire 3.1s linear infinite}.crosshair{position:absolute;z-index:3;right:calc(9% - 7px);bottom:calc(16% + 27px);width:70px;height:70px;border:2px solid #7af3ffd0;border-radius:50%;box-shadow:0 0 12px #6bf5ff44;animation:targetPulse 2.1s ease-in-out infinite;pointer-events:none}.crosshair:before,.crosshair:after{content:"";position:absolute;background:#7af3ff99}.crosshair:before{width:2px;height:92px;left:32px;top:-13px}.crosshair:after{height:2px;width:92px;top:32px;left:-13px}.scanline{position:absolute;left:0;top:0;right:0;height:45%;pointer-events:none;background:linear-gradient(transparent,transparent 96%,#fff1);background-size:100% 6px;opacity:.4}.ornament{position:absolute;left:15px;top:15px;z-index:6;display:flex;gap:7px}.ornament i{display:block;width:18px;height:4px;border-radius:4px;background:#a2f5e9aa;box-shadow:0 0 8px #9affee55}.ornament i:nth-child(3){background:#f5c4868c}.toolbar{position:absolute;z-index:20;right:clamp(9px,2.6vw,22px);bottom:clamp(8px,2.4vw,20px);display:flex;align-items:flex-end;gap:9px}.icon-btn{width:49px;height:49px;display:grid;place-items:center;border:1px solid #e9e3d18c;border-radius:15px;background:#121c33e8;color:#ecf3ff;box-shadow:0 3px 18px #0007;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(5px)}.icon-btn svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linejoin:round;stroke-linecap:round}.icon-btn:active{transform:scale(.95)}.choice:focus-visible~.toolbar .icon-btn{outline:3px solid #fff8;outline-offset:3px}.play-icon{display:none}#pause:checked~.toolbar .pause-icon{display:none}#pause:checked~.toolbar .play-icon{display:block}#gear:checked~.toolbar .gear-btn{background:#326277;border-color:#8ff3ff}.weapons{position:absolute;right:0;bottom:60px;display:none;flex-direction:column;gap:8px;padding:9px;border:1px solid #d4e5f866;border-radius:18px;background:#0e172adf;box-shadow:0 8px 24px #0007}#gear:checked~.toolbar .weapons{display:flex}.weapons .icon-btn{width:47px;height:47px;border-radius:12px}#w1:checked~.toolbar .weapon1,#w2:checked~.toolbar .weapon2,#w3:checked~.toolbar .weapon3{background:#245d6f;border-color:#85efff;box-shadow:0 0 0 1px #89dfff inset}.weapons .icon-btn svg{width:25px;height:25px}.tiny-mark{position:absolute;left:14px;bottom:15px;display:flex;gap:5px;align-items:center;z-index:6;pointer-events:none}.tiny-mark b{display:block;width:5px;height:17px;border:1px solid #fff6;transform:skew(-12deg);background:#d8f8ff6b}.tiny-mark b:nth-child(2){height:11px}.tiny-mark b:nth-child(3){height:21px;background:#f6c58cbb}
+@keyframes crouch{0%,12%,38%,54%,78%,100%{transform:translateY(0) scaleY(1)}20%,30%,65%,72%,89%,95%{transform:translateY(15px) scaleY(.82)}}@keyframes recoil{from{transform:rotate(-2deg)}to{transform:rotate(4deg)}}@keyframes flight{0%{opacity:0;transform:translateX(0)}.4%{opacity:1}8.1%{opacity:1;transform:translateX(530px)}9%{opacity:0;transform:translateX(550px)}9.01%,100%{opacity:0;transform:translateX(0)}}@keyframes flash{0%,.8%{opacity:1}.81%,100%{opacity:0}}@keyframes enemySway{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}@keyframes enemyFire{0%,24%{opacity:0;transform:translateX(0)}25%{opacity:1}67%{opacity:1;transform:translateX(-220px)}70%,100%{opacity:0;transform:translateX(-240px)}}@keyframes targetPulse{0%,100%{opacity:.65;transform:scale(.95)}50%{opacity:1;transform:scale(1.04)}}
+#pause:checked~.stage .jumper,#pause:checked~.stage .runner,#pause:checked~.stage .pose,#pause:checked~.stage .leg-l,#pause:checked~.stage .leg-r,#pause:checked~.stage .arm,#pause:checked~.stage .beam,#pause:checked~.stage .flash,#pause:checked~.stage .enemy,#pause:checked~.stage .enemy-shot,#pause:checked~.stage .crosshair{animation-play-state:paused}#w2:checked~.stage .beam{fill:#ffe186}#w3:checked~.stage .beam{fill:#fb92e7}#w2:checked~.stage .arm{animation-duration:.22s}#w3:checked~.stage .arm{animation-duration:.75s}
+body{display:flex;align-items:center;justify-content:center}.game{width:100%;max-width:980px;min-width:0}@media(max-width:420px){.enemy{right:5%;width:42px;height:78px}.enemy-shot{right:calc(5% + 37px)}.crosshair{right:calc(5% - 8px);width:60px;height:60px}.crosshair:before{left:27px;height:80px;top:-12px}.crosshair:after{top:27px;left:-12px;width:80px}.stage{min-height:340px}.icon-btn{width:48px;height:48px}}
+
+/* TERRAFORM v33: normalized bidirectional travel. One animation owns X translation.
+   Four equal 750ms strokes per 3s cycle. Every stroke travels the same distance.
+   Each turn reaches zero velocity: cubic-bezier(.42,0,.58,1).
+   Anchor travel never exceeds min(1/9 stage width, one 64px avatar width).
+   Crouch remains independent at 4.7s, preserving varying motion/posture combinations. */
+.lane{width:min(11.111111%,64px);contain:layout style}
+.runner{width:100%;height:116px;left:0;animation:normalizedStride 3s cubic-bezier(.42,0,.58,1) infinite}
+.avatar{width:64px;height:116px;max-width:none;display:block}
+@keyframes normalizedStride{
+  0%,50%,100%{transform:translate3d(0,0,0)}
+  25%,75%{transform:translate3d(100%,0,0)}
+}
+/* Native icon controls remain accessible; moving them below the arena prevents target occlusion. */
+.toolbar{position:relative;inset:auto;width:100%;min-height:49px;margin-top:9px;display:flex;justify-content:flex-end;align-items:center;gap:9px}
+.weapons{bottom:calc(100% + 9px);right:0}
+#pause:focus-visible~.toolbar .pause-btn,
+#gear:focus-visible~.toolbar .gear-btn,
+#w1:focus-visible~.toolbar .weapon1,
+#w2:focus-visible~.toolbar .weapon2,
+#w3:focus-visible~.toolbar .weapon3{outline:3px solid #fff;outline-offset:3px}
+.choice:focus-visible~.toolbar .icon-btn{outline:none}
+#pause:focus-visible~.toolbar .pause-btn,
+#gear:focus-visible~.toolbar .gear-btn,
+#w1:focus-visible~.toolbar .weapon1,
+#w2:focus-visible~.toolbar .weapon2,
+#w3:focus-visible~.toolbar .weapon3{outline:3px solid #fff;outline-offset:3px}
+/* Standalone file: no external dependencies. Preserve explicit motion request; accessible pause is always available. */
+@media(max-width:360px){.toolbar{margin-top:7px}.icon-btn{min-width:48px;min-height:48px}}
+
+/* TERRAFORM v34 — fast arcade hop; 0.60s airborne in each 3.0s gait cycle.
+   The vertical motion is on a dedicated child: X and Y never compete for transform.
+   6%-26% of 3.0s = 0.60s; the ascent is faster, the apex short, descent crisp.
+   All remaining frames are grounded, preventing floating between hops.
+   The CSS-only hop is intentionally timed, not a numerical gravity simulation. */
+.jumper{position:relative;width:64px;height:116px;transform-origin:32px 107px;
+  animation:quickArcadeJump 3s linear infinite;will-change:transform}
+@keyframes quickArcadeJump{
+  0%,6%{transform:translate3d(0,0,0) scaleY(1);animation-timing-function:cubic-bezier(.20,.68,.36,1)}
+  17%{transform:translate3d(0,-54px,0) scaleY(1);animation-timing-function:cubic-bezier(.64,0,.88,.52)}
+  26%{transform:translate3d(0,0,0) scaleY(1)}
+  27.5%{transform:translate3d(0,0,0) scaleY(.96)}
+  30%,100%{transform:translate3d(0,0,0) scaleY(1)}
+}
+
+/* TERRAFORM v35 — body-only motion. SVG leg paths remain fixed in the
+   local body coordinate system. No independent leg transforms or gait cycles.
+   The runner, jumper, and pose groups animate the rigid figure as a whole. */
+.leg-l,.leg-r{animation:none;transform:none}
+
+
+/* TERRAFORM v37 -- clarified spatial contract and motion observability.
+   The 1/9 arena constraint limits displacement of the avatar's left anchor.
+   The restored 64px-wide figure cannot fit in a 35px-wide lane on a 320px
+   screen; its entire visible bounding box is instead constrained to the
+   arena. No sprite resizing, gait animation, or clipping is introduced.
+   The static rail + translating contact shadow make limited travel legible. */
+.lane{width:11.111111%;max-width:64px;contain:none}
+.motion-rail{position:absolute;z-index:0;left:0;bottom:-13px;width:100%;height:2px;background:repeating-linear-gradient(90deg,#c0f6f0aa 0 4px,transparent 4px 8px);pointer-events:none}
+.motion-rail i{position:absolute;display:block;width:5px;height:12px;bottom:-5px;border-radius:3px;background:#d7fcf5;box-shadow:0 0 5px #9cf1dc55}
+.motion-rail i:first-child{left:-2px}.motion-rail i:last-child{right:-2px}
+.runner{z-index:2;will-change:transform}
+.runner::after{content:"";position:absolute;z-index:-1;bottom:-10px;left:21px;width:26px;height:7px;border-radius:50%;background:#1c1b31a6;box-shadow:0 0 7px 4px #34263288;pointer-events:none}
+/* Ancillary effects yield to accessibility without hiding the requested core motion.
+   The always-reachable pause button is the explicit motion-off control. */
+@media (prefers-reduced-motion:reduce){
+  .scanline{display:none}
+  .crosshair,.enemy,.enemy-shot{animation:none}
+  .runner{animation-duration:4.5s}
+  .jumper{animation-duration:4.5s}
+  .pose{animation-duration:7.05s}
+}
+
+
+/* TERRAFORM v38 — inline vector environment and material polish.
+   Layered background is decorative only. Player/enemy physics and 3s body motion unchanged. */
+.stage{background:#292c50;box-shadow:inset 0 0 0 1px #ffcf9877,0 15px 48px #000a,0 0 0 1px #0c1027;border-color:#ffc8969a}
+.stage:before,.stage:after{display:none}
+.stage>.dunes,.stage>.ridge,.stage>.arch{display:none}
+.scenery{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0}
+.stage::selection{background:transparent}
+.stage .scanline{z-index:1;opacity:.14;background-size:100% 8px}
+.stage .lane{z-index:4}
+.stage .enemy{z-index:4;filter:drop-shadow(1px 4px 1px #1b2038b0) drop-shadow(0 0 8px #fff1c02a)}
+.stage .avatar{filter:drop-shadow(1px 5px 2px #17192cc7) drop-shadow(0 0 6px #ffe1a72c)}
+.stage .beam{filter:drop-shadow(0 0 4px #72efff) drop-shadow(0 0 8px #9deeff)}
+.stage .flash{filter:drop-shadow(0 0 4px #ffe39b)}
+.stage .crosshair{border-color:#98fbffe6;border-width:1.5px;box-shadow:0 0 0 4px #4be5ef19,0 0 12px #5fe9f779,inset 0 0 10px #62d9ee1f}
+.stage .crosshair:before,.stage .crosshair:after{background:#96f7fbb5}
+.stage .enemy-shot{box-shadow:0 0 7px #ff6576,0 0 13px #ff6576a1}
+.stage .ornament i{height:5px;background:linear-gradient(90deg,#a3f5eb,#e6ffdd);box-shadow:0 0 8px #99fff688}
+.stage .ornament i:nth-child(3){background:linear-gradient(90deg,#f9d4a2,#f3a66e)}
+.toolbar .icon-btn{background:linear-gradient(150deg,#23324bf5,#10192ef5);border:1px solid #e2d6b2a8;box-shadow:inset 0 1px #ffffff19,0 6px 20px #0009;border-radius:14px}
+.toolbar .icon-btn svg{filter:drop-shadow(0 0 2px #a7efff32)}
+.toolbar .icon-btn:active{background:#356277;transform:scale(.96)}
+.toolbar .weapons{background:linear-gradient(140deg,#1b2a44ed,#0b1324f5);border-color:#99eaf2a1}
+.motion-rail{background:repeating-linear-gradient(90deg,#dcf8d0b5 0 4px,transparent 4px 9px)}
+.runner::after{box-shadow:0 0 7px 5px #2b253ea6}
+@media(prefers-reduced-motion:reduce){.stage .scanline{display:none}}
+
+
+/* TERRAFORM v39: weapon-selectable deterministic volley sizes.
+   Each 2-second volley has three slots: .25/.41/.57 seconds from its start.
+   The selected weapon exposes exactly 1, 2 or 3 muzzle events per volley.
+   This is CSS choreography, NOT randomness, collision, damage or world-space physics. */
+#w1:checked~.stage .shot.burst-2,
+#w1:checked~.stage .shot.burst-3,
+#w2:checked~.stage .shot.burst-3{display:none}
+.muzzle-ring{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:muzzleRing 6s linear infinite;animation-delay:var(--delay);pointer-events:none}
+@keyframes muzzleRing{
+  0%{opacity:.7;transform:scale(.55)}
+  1.5%{opacity:0;transform:scale(1.9)}
+  1.51%,100%{opacity:0;transform:scale(.55)}
+}
+#pause:checked~.stage .muzzle-ring{animation-play-state:paused}
+#w2:checked~.stage .muzzle-ring{stroke:#ffe58e}
+#w3:checked~.stage .muzzle-ring{stroke:#ffacee}
+/* Respect the operating-system reduced-motion preference: static scene by default.
+   Normal motion remains 3s stride / 0.6s airborne. Pause remains available. */
+@media(prefers-reduced-motion:reduce){
+  /* Keep timelines available: user may explicitly opt in with the Play control. */
+  .runner,.jumper,.pose,.arm,.beam,.flash,.muzzle-ring,.enemy-shot,.crosshair{
+    animation-play-state:paused!important;
+  }
+}
+
+/* TERRAFORM v40 — non-occluding horizontal weapon dock.
+   Weapon choices live entirely below the arena, left of the existing buttons.
+   Keyboard focus on a radio reveals its dock even if gear is not checked.
+   Selected weapon is also encoded as 1/2/3 color-coded pips on the gear icon.
+   All affordances are CSS-only; no extra rendered words or JS. */
+.toolbar .weapons{
+  position:absolute;right:114px;bottom:0;top:auto;
+  flex-direction:row;align-items:center;gap:5px;
+  padding:2px 4px;border-radius:13px;
+}
+.toolbar .weapons .icon-btn{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:10px}
+#w1:focus-visible~.toolbar .weapons,
+#w2:focus-visible~.toolbar .weapons,
+#w3:focus-visible~.toolbar .weapons{display:flex}
+.toolbar .gear-btn{position:relative}
+.toolbar .gear-btn::after{
+  content:"";position:absolute;bottom:3px;left:12px;
+  width:5px;height:5px;border-radius:50%;background:#8df4ff;
+  box-shadow:none;pointer-events:none;
+}
+#w2:checked~.toolbar .gear-btn::after{background:#ffe186;box-shadow:9px 0 #ffe186}
+#w3:checked~.toolbar .gear-btn::after{background:#fb92e7;box-shadow:9px 0 #fb92e7,18px 0 #fb92e7}
+/* Never hide keyboard focus under the menu surface. */
+#w1:focus-visible~.toolbar .weapon1,
+#w2:focus-visible~.toolbar .weapon2,
+#w3:focus-visible~.toolbar .weapon3{outline:3px solid #fff;outline-offset:2px}
+
+
+/* TERRAFORM v41 — enemy shot emerges from its visible muzzle, not helmet.
+   At 52×95 the muzzle is (-11,58) in enemy SVG units; at 42×78 it scales.
+   The projectile remains a CSS visual effect, not detached physics or damage. */
+.enemy svg{overflow:visible}
+.enemy-shot{bottom:calc(16% + 35px)}
+@media(max-width:420px){.enemy-shot{right:calc(5% + 34px);bottom:calc(16% + 28px)}}
+
+/* TERRAFORM v42 — muzzle-locked CSS visual fire.
+   Projectile and ignition are descendants of the swaying enemy, so their
+   launch point shares the enemy transform. Flight is still attached to that
+   moving coordinate frame, not detached world-space ballistics.
+   SVG muzzle: x=-11/52 width, y=58/95 height; projectile right edge aligns
+   with muzzle x; mobile SVG aspect mismatch leaves <=0.15px vertical offset. */
+/* Explicit 25% transform removes the inherited ~5.12px premature drift. */
+@keyframes enemyFire{
+  0%,24%{opacity:0;transform:translateX(0)}
+  25%{opacity:1;transform:translateX(0)}
+  67%{opacity:1;transform:translateX(-220px)}
+  70%,100%{opacity:0;transform:translateX(-240px)}
+}
+.enemy-shot{
+  right:calc(100% + 21.153846%);left:auto;
+  top:calc(61.052632% - 2px);bottom:auto;
+}
+.enemy-ignition{
+  position:absolute;pointer-events:none;z-index:6;
+  right:calc(100% + 21.153846%);top:calc(61.052632% - 5px);
+  width:10px;height:10px;transform:translateX(50%);
+  border-radius:50%;background:#fff5d4;
+  box-shadow:0 0 7px 4px #ff857a,0 0 16px 8px #fa496a70;
+  opacity:0;animation:enemyIgnition 3.1s steps(1,end) infinite;
+}
+@keyframes enemyIgnition{
+  0%,24.9%,29%,100%{opacity:0}
+  25%,28.9%{opacity:1}
+}
+#pause:checked~.stage .enemy-ignition{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+  .enemy-ignition{animation-play-state:paused!important}
+}
+
+
+/* TERRAFORM v43 — equal combatant scale and planted avatar feet.
+   Source viewBoxes: player 64×116; enemy 64×116. Both meet the same baseline.
+   Neutral player legs are fixed geometry with matching boot soles at y=114.
+   No leg animations. Body-only crouching anchors to boot soles instead of pushing
+   feet through the ground (prior y+15px shift during compression). */
+.enemy,.enemy svg{width:64px;height:116px}
+.enemy{right:8%;bottom:16%}
+.avatar .pose{transform-origin:32px 114px}
+@keyframes crouch{
+  0%,12%,38%,54%,78%,100%{transform:scaleY(1)}
+  20%,30%,65%,72%,89%,95%{transform:scaleY(.82)}
+}
+.leg-l,.leg-r,.enemy-legs{animation:none!important;transform:none!important}
+/* Enemy muzzle coords: x=-12,y=62 of a 64×116 viewBox. Projectile is relative
+   to the swaying enemy and starts at the SVG's actual barrel end. */
+.enemy-shot,.enemy-ignition{right:calc(100% + 18.75%);left:auto}
+.enemy-shot{top:calc(53.4482758621% - 2px);bottom:auto}
+.enemy-ignition{top:calc(53.4482758621% - 5px);bottom:auto}
+/* Reticle remains centered on the target torso, not its rifle. */
+.crosshair{right:calc(8% - 7px);bottom:calc(16% + 31px)}
+@media(max-width:420px){
+ .enemy{right:5%;width:64px;height:116px}
+ .crosshair{right:calc(5% - 7px);bottom:calc(16% + 31px)}
+}
+
+/* TERRAFORM v44 — stage-relative CSS projectile path (visual only).
+   Separate the 64×116 enemy sprite's sway from its stationary stage anchor.
+   The shot and ignition are siblings of the animated SVG; their trajectory
+   therefore does NOT inherit enemy sway during flight. Both are anchored at
+   the muzzle's neutral x=-12,y=62; the SVG returns to neutral from 23% to
+   30% of its synchronized 3.1s cycle, including the 25% shot ignition.
+   No hit detection, actual ballistics, or physics is implied. */
+.enemy{animation:none!important}
+.enemy svg{animation:enemyAimSway 3.1s ease-in-out infinite;will-change:transform}
+@keyframes enemyAimSway{
+  0%,23%,30%,100%{transform:translate3d(0,0,0)}
+  12%{transform:translate3d(-6px,0,0)}
+  60%{transform:translate3d(-7px,0,0)}
+  78%{transform:translate3d(4px,0,0)}
+}
+#pause:checked~.stage .enemy svg{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.enemy svg{animation-play-state:paused!important}}
+/* Radios are visually hidden: reveal their control surface whenever focused,
+   not only when the browser decides focus is keyboard-visible. */
+#w1:focus~.toolbar .weapons,
+#w2:focus~.toolbar .weapons,
+#w3:focus~.toolbar .weapons{display:flex}
+#w1:focus~.toolbar .weapon1,
+#w2:focus~.toolbar .weapon2,
+#w3:focus~.toolbar .weapon3{outline:3px solid #fff;outline-offset:2px}
+
+/* TERRAFORM v45 — preview movement red-team patch.
+   Combat auto-runs in normal motion; reduced-motion is a STATIC preview with
+   explicit user opt-in via the existing play/pause control (no JavaScript).
+   The user can now recover motion inside previews that report 'reduce'. */
+.toolbar{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:8px;min-height:49px}
+.toolbar .weapons{position:static;inset:auto;right:auto;bottom:auto;order:-1;margin-right:auto;flex-wrap:nowrap;max-width:100%}
+.toolbar .shield-btn{flex:0 0 auto}
+#shield:checked~.toolbar .shield-btn{background:#185e75;border-color:#8aebff;box-shadow:inset 0 0 0 1px #a2f4ff,0 0 13px #5dedfe70}
+#shield:focus-visible~.toolbar .shield-btn,#shield:focus~.toolbar .shield-btn{outline:3px solid #fff;outline-offset:2px}
+/* Body-mounted effects make tiny bounded movement visually apparent without
+   increasing the player's 1/9-stage-width anchor excursion. */
+.jumper{position:relative}
+.shield-field{position:absolute;pointer-events:none;left:-13px;top:-8px;width:90px;height:126px;
+  border:2px solid #a0f7ff;border-radius:49% 49% 48% 48%;
+  background:radial-gradient(ellipse at 45% 48%,#8ceaf20c 28%,#74e9ff22 71%,#82f1ff36);
+  box-shadow:inset 0 0 17px #a4f8ff4a,0 0 15px #6ceaff7e;
+  opacity:0;transform:scale(.90);transition:opacity .16s ease,transform .16s ease;
+}
+#shield:checked~.stage .shield-field{opacity:.85;transform:scale(1);animation:shieldBreathe 2.4s ease-in-out infinite}
+@keyframes shieldBreathe{0%,100%{filter:brightness(.8)}50%{filter:brightness(1.2)}}
+.dust-mark{position:absolute;pointer-events:none;left:2px;bottom:-8px;width:19px;height:8px;
+  border-radius:50%;background:#ffe9b694;filter:blur(2px);opacity:.15;
+  animation:dustKick 3s ease-in-out infinite;
+}
+.dust-mark::before,.dust-mark::after{content:"";position:absolute;border-radius:50%;background:#ffdeaa80;filter:blur(2px)}
+.dust-mark::before{left:-12px;top:1px;width:11px;height:6px}
+.dust-mark::after{left:19px;top:0;width:8px;height:5px}
+@keyframes dustKick{0%,50%,100%{opacity:.1;transform:scale(.7)}25%,75%{opacity:.8;transform:scale(1.4)}}
+/* Progressively enhanced weapon dock never obscures the battle arena.
+   On narrow widths the row wraps below it instead of overflowing. */
+@media(max-width:350px){.toolbar{justify-content:flex-end;gap:6px}.toolbar .weapons{margin-right:0;flex-basis:100%;justify-content:flex-end}}
+#pause:checked~.stage .dust-mark,#pause:checked~.stage .shield-field{animation-play-state:paused}
+/* Reduced-motion preview: present PLAY in the static first frame; selecting it
+   explicitly resumes all gameplay animation channels. This is an opt-in,
+   not silent disregard for OS accessibility settings. */
+@media(prefers-reduced-motion:reduce){
+  .runner,.jumper,.pose,.arm,.beam,.flash,.muzzle-ring,.enemy-shot,.enemy-ignition,.crosshair,.enemy svg,.dust-mark,.shield-field{
+    animation-play-state:paused!important;
+  }
+  .runner,.jumper{animation-duration:3s!important}
+  .pose{animation-duration:4.7s!important}
+  .toolbar .pause-btn .pause-icon{display:none}
+  .toolbar .pause-btn .play-icon{display:block}
+  #pause:checked~.toolbar .pause-btn .pause-icon{display:block}
+  #pause:checked~.toolbar .pause-btn .play-icon{display:none}
+  #pause:checked~.stage .runner,#pause:checked~.stage .jumper,#pause:checked~.stage .pose,
+  #pause:checked~.stage .arm,#pause:checked~.stage .beam,#pause:checked~.stage .flash,
+  #pause:checked~.stage .muzzle-ring,#pause:checked~.stage .enemy-shot,
+  #pause:checked~.stage .enemy-ignition,#pause:checked~.stage .crosshair,
+  #pause:checked~.stage .enemy svg,#pause:checked~.stage .dust-mark,
+  #pause:checked~.stage .shield-field{animation-play-state:running!important}
+}
+
+
+/* TERRAFORM v46 — eight independently constructed CSS silhouettes.
+   Geometry is local in a 64x116 sprite for both combatants. All portions are
+   distinct rounded/polygonal DOM shapes. Legs and boots are STATIC; only
+   whole-body pose/runner/jumper and the hero weapon arm inherit animations.
+   No scripts, images, external assets or canvas. */
+.anatomy{position:relative;display:block;width:64px;height:116px;min-width:64px;min-height:116px;overflow:visible;
+  --shell:#d4be93;--shell-lit:#f3dcae;--shell-shade:#706b70;
+  --accent:#43646b;--accent-lit:#89c6c1;--fabric:#323c53;--trim:#182537;
+  --skin:#e7c8a3;--visor:#a3f2ee;--line:#394454;
+  filter:drop-shadow(0 4px 3px #17203155);
+}
+.anatomy--enemy{--shell:#d8dedc;--shell-lit:#fff9ed;--shell-shade:#84919a;
+  --accent:#708698;--accent-lit:#e5f1ea;--fabric:#4b5367;--trim:#202b3b;
+  --skin:#d5d1c8;--visor:#9ceef0;--line:#465467}
+.anatomy .anatomy-pose{position:absolute;inset:0;width:64px;height:116px;transform-origin:32px 114px}
+.anatomy span,.anatomy i{box-sizing:border-box}
+.anatomy .unit-leg{position:absolute;top:70px;width:14px;height:38px;z-index:1;
+  background:linear-gradient(90deg,var(--trim),var(--fabric) 40%,#798398 82%,var(--fabric));
+  border:1px solid var(--line);clip-path:polygon(8% 0,97% 0,89% 72%,79% 100%,8% 100%,0 42%);
+  animation:none!important;transform:none!important}
+.anatomy .leg-left{left:17px;clip-path:polygon(15% 0,100% 0,87% 100%,0 100%)}
+.anatomy .leg-right{left:34px;clip-path:polygon(0 0,87% 0,100% 100%,8% 100%)}
+.anatomy .unit-foot{position:absolute;top:103px;height:11px;width:22px;z-index:4;
+  background:linear-gradient(180deg,#68758a 0%,var(--trim) 45%,#111b2b 100%);
+  border:1px solid #adb2a7;border-radius:2px 5px 2px 2px;
+  animation:none!important;transform:none!important}
+.anatomy .foot-left{left:10px;clip-path:polygon(38% 0,74% 0,100% 63%,100% 100%,0 100%,0 64%)}
+.anatomy .foot-right{left:35px;clip-path:polygon(0 0,45% 0,100% 55%,100% 100%,0 100%)}
+.anatomy .unit-pelvis{position:absolute;left:19px;top:65px;width:28px;height:15px;z-index:3;
+  background:linear-gradient(120deg,var(--shell-shade),var(--shell));
+  clip-path:polygon(5% 0,95% 0,84% 100%,16% 100%);border-radius:4px}
+.anatomy .unit-body{position:absolute;left:15px;top:37px;width:35px;height:36px;z-index:4;
+  background:linear-gradient(115deg,var(--shell-lit) 0%,var(--shell) 36%,var(--shell-shade) 100%);
+  clip-path:polygon(16% 0,84% 0,100% 20%,91% 100%,9% 100%,0 18%);
+  filter:drop-shadow(0 1px 1px #0f1a2d8c)}
+.anatomy .unit-chest{position:absolute;left:22px;top:40px;width:21px;height:23px;z-index:6;
+  background:linear-gradient(145deg,var(--accent-lit),var(--accent) 48%,var(--trim));
+  clip-path:polygon(13% 0,86% 0,100% 70%,50% 100%,0 70%);
+  border-radius:2px}
+.anatomy .unit-chest::after{content:"";position:absolute;inset:4px 5px 8px;
+  background:#e4f2db55;clip-path:polygon(0 0,100% 0,82% 100%,20% 100%)}
+.anatomy .unit-neck{position:absolute;left:27px;top:30px;width:10px;height:12px;z-index:5;
+  border-radius:3px;background:linear-gradient(90deg,var(--shell-shade),var(--skin) 45%,var(--shell-shade));
+  box-shadow:inset 0 -3px 0 var(--trim)}
+.anatomy .unit-head{position:absolute;left:15px;top:5px;width:35px;height:34px;z-index:9;
+  background:linear-gradient(130deg,var(--shell-lit),var(--skin) 42%,var(--shell-shade));
+  border:2px solid var(--line);border-radius:46% 46% 43% 43% / 42% 42% 52% 52%;
+  box-shadow:inset 0 4px 0 #ffffff35,0 1px 2px #12213688}
+.anatomy .unit-head::before{content:"";position:absolute;left:-1px;right:-1px;top:0px;height:11px;
+  border-radius:50% 50% 20% 20%;border-top:5px solid var(--line);background:linear-gradient(180deg,var(--shell),transparent)}
+.anatomy .visor{position:absolute;left:4px;right:4px;top:14px;height:8px;border-radius:3px;
+  background:linear-gradient(90deg,var(--trim),#34556e,var(--visor),var(--trim));
+  box-shadow:0 0 1px 1px #152033a8,inset 0 1px 0 #e2ffffb0}
+.anatomy .unit-shoulder{position:absolute;left:41px;top:39px;width:14px;height:13px;z-index:8;
+  border-radius:65% 35% 60% 30%;background:linear-gradient(135deg,var(--shell-lit),var(--shell-shade));
+  border:1px solid var(--line)}
+.anatomy .unit-arm{position:absolute;z-index:3;
+  background:linear-gradient(110deg,var(--shell-lit),var(--shell),var(--shell-shade));
+  border:1px solid var(--line);clip-path:polygon(12% 0,88% 0,100% 25%,78% 100%,0 91%,0 20%)}
+.anatomy .arm-back{left:9px;top:41px;width:12px;height:28px;z-index:3;transform:none!important}
+.anatomy .unit-hand{position:absolute;width:11px;height:10px;
+  background:linear-gradient(140deg,var(--skin),var(--shell-shade));
+  border:1px solid #5a5661;border-radius:44% 49% 54% 45%;z-index:5}
+.anatomy .hand-back{left:7px;top:64px}
+.anatomy .arm-weapon{position:absolute;left:39px;top:47px;width:40px;height:24px;z-index:12;
+  transform-origin:0 0;animation:recoil .36s ease-in-out infinite alternate}
+.anatomy .arm-weapon .arm-front{left:0;top:0;width:17px;height:15px;z-index:1;
+  clip-path:polygon(0 0,52% 0,100% 48%,95% 100%,52% 78%,0 35%)}
+.anatomy .arm-weapon .hand-front{left:14px;top:8px;z-index:4}
+.anatomy .blaster-stock{position:absolute;left:12px;top:0;width:18px;height:7px;
+  border:1px solid #91b4bd;border-radius:3px 1px 1px 2px;z-index:5;
+  background:linear-gradient(180deg,#819ba4 0 24%,#273a48 25% 70%,#141e2e 71%)}
+.anatomy .blaster-stock::after{content:"";position:absolute;left:6px;top:5px;width:5px;height:8px;
+  clip-path:polygon(0 0,100% 0,100% 90%,20% 100%);background:#253044}
+.anatomy .blaster-muzzle{position:absolute;left:28px;top:1.5px;width:2px;height:4px;z-index:6;
+  background:#9af2ed;border-radius:1px}
+.anatomy .weapon-fx{position:absolute;left:0;top:0;width:40px;height:24px;
+  overflow:visible;pointer-events:none;z-index:7}
+/* Enemy is exactly 64×116 CSS px, same baseline as player. Enemy projectile and
+   ignition stay stage-relative and share the neutral x=-12,y=62 muzzle anchor. */
+.anatomy--enemy .leg-left{left:17px}.anatomy--enemy .leg-right{left:34px}
+.anatomy--enemy .unit-body{left:15px;top:37px;width:35px;height:37px}
+.anatomy--enemy .unit-chest{left:20px;top:42px;width:24px;height:24px;
+  clip-path:polygon(0 0,100% 0,86% 81%,50% 100%,14% 81%)}
+.anatomy--enemy .unit-head{border-radius:46% 46% 30% 30% / 45% 45% 43% 43%}
+.anatomy--enemy .visor{left:3px;right:4px;top:15px;height:10px;
+  clip-path:polygon(0 0,100% 0,90% 100%,9% 100%)}
+.anatomy--enemy .arm-back{left:45px;top:42px;width:11px;height:28px}
+.anatomy--enemy .hand-back{left:44px;top:65px}
+.anatomy--enemy .unit-shoulder{left:11px;top:40px}
+.anatomy--enemy .npc-weapon-arm{position:absolute;left:3px;top:46px;width:31px;height:27px;z-index:12}
+.anatomy--enemy .npc-weapon-arm .arm-front{left:6px;top:1px;width:13px;height:21px;
+  clip-path:polygon(30% 0,100% 0,100% 100%,0 88%)}
+.anatomy--enemy .npc-weapon-arm .hand-front{left:3px;top:12px;width:10px;height:9px;z-index:6}
+.anatomy--enemy .npc-blaster{position:absolute;left:-15px;top:12px;width:27px;height:8px;z-index:7;
+  clip-path:polygon(0 14%,17% 14%,17% 0,100% 0,100% 70%,82% 100%,0 100%);
+  border-radius:1px;background:linear-gradient(180deg,#a9c9cc 0 22%,#233649 24% 76%,#111a2b 80%)}
+.anatomy--enemy .npc-muzzle{position:absolute;left:-15px;top:14px;width:3px;height:4px;z-index:8;
+  background:#ffa28e;border-radius:1px;box-shadow:0 0 2px #fc777e}
+/* Enemy local muzzle = .npc-weapon-arm left 3 + muzzle left -15 = -12;
+   top 46 + muzzle top 14 + 2px half height = 62. */
+.enemy .enemy-sprite{position:relative;display:block;width:64px;height:116px;
+  animation:enemyAimSway 3.1s ease-in-out infinite;will-change:transform}
+#pause:checked~.stage .enemy-sprite{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+  .enemy .enemy-sprite{animation-play-state:paused!important}
+  #pause:checked~.stage .enemy-sprite{animation-play-state:running!important}
+}
+/* Scope old SVG-specific selectors away from new CSS anatomy. */
+.avatar.anatomy{filter:drop-shadow(0 7px 3px #21172169)}
+.anatomy--hero .pose{animation:crouch 4.7s ease-in-out infinite}
+/* Constrain limb motion: all limbs fixed inside rigid pose; independent recoil
+   only moves the weapon arm and muzzle as a single mechanical unit. */
+.anatomy .unit-leg,.anatomy .unit-foot{animation:none!important;transform:none!important}
+#pause:checked~.stage .anatomy .arm-weapon{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+  .anatomy .arm-weapon{animation-play-state:paused!important}
+  #pause:checked~.stage .anatomy .arm-weapon{animation-play-state:running!important}
+}
+
+
+/* TERRAFORM v47 :: SELECT → ATTACK → EXCHANGE → LAND.
+   CSS-only deterministic encounter. No JS, runtime hit detection, health or actual ballistics.
+   Enemy label is 64×116px; popover appears directly overhead after selection.
+   Both factions stay idle until the player explicitly engages the selected opponent. */
+#target:focus-visible~.stage .enemy-target,
+#target:focus~.stage .enemy-target{
+  outline:3px solid #fff;outline-offset:4px;border-radius:12px;
+}
+.enemy-target{position:absolute;z-index:12;right:8%;bottom:16%;width:64px;height:116px;
+ cursor:crosshair;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.enemy-target-bracket{position:absolute;inset:0;border:1px dashed #d4f6ff44;border-radius:14px;
+ opacity:.56;transition:opacity .15s,box-shadow .15s;pointer-events:none}
+.enemy-target:hover .enemy-target-bracket{opacity:1;box-shadow:0 0 13px #79ffef88}
+#target:checked~.stage .enemy-target-bracket{opacity:1;border:2px solid #a1faff;
+ box-shadow:0 0 8px #93fbffb1,inset 0 0 8px #87fafa44}
+#target:checked~.stage .crosshair{display:block;visibility:visible;opacity:1}
+.stage .crosshair{display:none}
+.target-popover{position:absolute;z-index:25;right:calc(8% - 26px);bottom:calc(16% + 130px);
+ display:none;align-items:center;justify-content:center;gap:8px;
+ padding:7px;border:1px solid #b7faffc7;border-radius:16px;
+ background:linear-gradient(140deg,#21384fea,#0d1a34f3);box-shadow:0 8px 19px #030817c4,0 0 18px #71e1ff60;
+ backdrop-filter:blur(6px)}
+.target-popover:after{content:"";position:absolute;bottom:-8px;right:48px;width:13px;height:13px;
+ transform:rotate(45deg);background:#12263c;border-right:1px solid #b7faffc7;border-bottom:1px solid #b7faffc7}
+.target-action{display:grid;place-items:center;min-width:49px;min-height:49px;width:49px;height:49px;
+ border-radius:12px;border:1px solid #aceeff6b;color:#efffff;
+ background:linear-gradient(#29415a,#14233a);cursor:pointer;touch-action:manipulation;
+ box-shadow:inset 0 1px #fff4}
+.target-action svg{width:29px;height:29px}
+.attack-action{color:#aaffeb;border-color:#91ead5;background:#205e61}
+.attack-action:active,.dismiss-action:active,.end-combat:active{transform:scale(.95)}
+#target:checked~.stage .target-popover{display:flex}
+#engage:checked~.stage .target-popover{display:none}
+#engage:focus~.stage .attack-action,#engage:focus-visible~.stage .attack-action{outline:3px solid white;outline-offset:2px}
+.end-combat{position:absolute;z-index:25;right:calc(8% + 8px);bottom:calc(16% + 130px);
+ display:none;min-width:49px;min-height:49px;color:#ffbcc1;border-color:#ffb8b9a6}
+#engage:checked~.stage .end-combat{display:grid}
+#engage:checked~.stage .enemy-target{pointer-events:none}
+/* Stage-relative projectile tracks terminate at the target's chest and the player's torso.
+   They are illustrative paths; while either character moves they are approximations,
+   not tracking collision paths. The muzzle flashes stay on actual weapon parts. */
+.combat-fx{position:absolute;inset:0;z-index:7;pointer-events:none;overflow:hidden}
+.hero-to-enemy,.enemy-to-hero{position:absolute;height:14px;pointer-events:none}
+.hero-to-enemy{
+ left:calc(8.2% + 69px);right:calc(8% + 33px);bottom:calc(16% + 57px);
+}
+.enemy-to-hero{
+ left:calc(8.2% + 42px);right:calc(8% + 76px);bottom:calc(16% + 45.5px);
+}
+.visual-shot{position:absolute;inset:0;opacity:1;pointer-events:none}
+.visual-bolt,.return-bolt{position:absolute;top:3px;left:0;width:22px;height:5px;
+ border-radius:6px;background:#b5faff;
+ box-shadow:0 0 3px #fff,0 0 9px #22cfff,0 0 17px #13aef9;
+ opacity:0;animation:playerShotTravel 6s linear infinite;animation-delay:var(--delay)}
+.visual-impact,.return-impact{position:absolute;right:-8px;top:-13px;width:29px;height:29px;
+ background:radial-gradient(circle,#fff5da 0 10%,#8dfcfb 12% 20%,#4ad2ff9e 24% 39%,transparent 60%);
+ filter:drop-shadow(0 0 7px #72f5ff);
+ clip-path:polygon(50% 0,60% 34%,100% 15%,66% 50%,100% 84%,61% 68%,50% 100%,39% 68%,0 84%,34% 50%,0 15%,40% 34%);
+ opacity:0;transform:scale(.25);animation:playerHitBurst 6s linear infinite;
+ animation-delay:var(--delay)}
+@keyframes playerShotTravel{
+ 0%{left:0;opacity:0} .15%{left:0;opacity:1}
+  5.55%{left:calc(100% - 16px);opacity:1}
+  5.65%,100%{left:calc(100% - 16px);opacity:0}
+}
+@keyframes playerHitBurst{
+  0%,5.35%{opacity:0;transform:scale(.25)}
+  5.58%{opacity:1;transform:scale(1.2)}
+  6.55%{opacity:.92;transform:scale(.9)}
+  8.35%,100%{opacity:0;transform:scale(1.55)}
+}
+/* Return fire begins 0.775s after engagement (25% of 3.1s cycle);
+   hits the player's neutral chest after ~0.39s and displays impact sparks. */
+.return-bolt{left:auto;right:0;background:#ffc0b2;
+ box-shadow:0 0 3px #fff,0 0 9px #ff4f82,0 0 17px #fb225a;
+ animation:enemyShotTravel 3.1s linear infinite}
+.return-impact{right:auto;left:-12px;
+ background:radial-gradient(circle,#fffbf3 0 10%,#ffcdad 12% 22%,#ff657fc5 25% 42%,transparent 62%);
+ filter:drop-shadow(0 0 7px #ff6f9d);animation:enemyHitBurst 3.1s linear infinite}
+@keyframes enemyShotTravel{
+  0%,24.9%{right:0;opacity:0}
+  25%{right:0;opacity:1}
+  37.5%{right:calc(100% - 16px);opacity:1}
+  37.6%,100%{right:calc(100% - 16px);opacity:0}
+}
+@keyframes enemyHitBurst{
+  0%,37.1%{opacity:0;transform:scale(.2)}
+  37.5%{opacity:1;transform:scale(1.2)}
+  38.5%{opacity:.8;transform:scale(.9)}
+  41%,100%{opacity:0;transform:scale(1.6)}
+}
+/* Firing effects are gated by a SINGLE mutually-exclusive encounter state.
+   States: idle → target → engage → idle; no two-boolean contradictory states. */
+#idle:checked~.stage .crosshair{display:none}
+#engage:checked~.stage .crosshair{display:block}
+/* disable inherited long SVG beams and fixed enemy shot so they cannot overshoot */
+.stage .beam,.stage .enemy-shot{display:none!important}
+#engage:not(:checked)~.stage .combat-fx{visibility:hidden}
+#engage:checked~.stage .combat-fx{visibility:visible}
+/* Initially static, including both opponents. Existing animations resume on engagement. */
+.stage .runner,.stage .jumper,.stage .pose,.stage .arm-weapon,.stage .arm,
+.stage .flash,.stage .muzzle-ring,.stage .enemy-sprite,.stage .enemy-ignition,
+.stage .dust-mark,.stage .shield-field,.stage .enemy-shot,
+.stage .visual-bolt,.stage .visual-impact,.stage .return-bolt,.stage .return-impact{
+  animation-play-state:paused!important;
+}
+#engage:checked~.stage .runner,
+#engage:checked~.stage .jumper,
+#engage:checked~.stage .pose,
+#engage:checked~.stage .arm-weapon,
+#engage:checked~.stage .arm,
+#engage:checked~.stage .flash,
+#engage:checked~.stage .muzzle-ring,
+#engage:checked~.stage .enemy-sprite,
+#engage:checked~.stage .enemy-ignition,
+#engage:checked~.stage .dust-mark,
+#engage:checked~.stage .shield-field,
+#engage:checked~.stage .visual-bolt,
+#engage:checked~.stage .visual-impact,
+#engage:checked~.stage .return-bolt,
+#engage:checked~.stage .return-impact{
+  animation-play-state:running!important;
+}
+/* pause button has priority for all combat channels */
+#pause:checked~#engage:checked~.stage .runner,#pause:checked~#engage:checked~.stage .jumper,
+#pause:checked~#engage:checked~.stage .pose,#pause:checked~#engage:checked~.stage .arm-weapon,
+#pause:checked~#engage:checked~.stage .arm,#pause:checked~#engage:checked~.stage .flash,
+#pause:checked~#engage:checked~.stage .muzzle-ring,#pause:checked~#engage:checked~.stage .enemy-sprite,
+#pause:checked~#engage:checked~.stage .enemy-ignition,#pause:checked~#engage:checked~.stage .dust-mark,
+#pause:checked~#engage:checked~.stage .shield-field,#pause:checked~#engage:checked~.stage .visual-bolt,
+#pause:checked~#engage:checked~.stage .visual-impact,#pause:checked~#engage:checked~.stage .return-bolt,
+#pause:checked~#engage:checked~.stage .return-impact{animation-play-state:paused!important}
+/* rifle choice governs actual displayed landing bursts */
+#w1:checked~.stage .visual-shot.burst-2,#w1:checked~.stage .visual-shot.burst-3,
+#w2:checked~.stage .visual-shot.burst-3{display:none}
+#w2:checked~.stage .visual-bolt{background:#ffe6a1;box-shadow:0 0 9px #ffc158}
+#w3:checked~.stage .visual-bolt{background:#ffd5f6;box-shadow:0 0 10px #ff80dc}
+#w2:checked~.stage .visual-impact{filter:drop-shadow(0 0 9px #ffd478)}
+#w3:checked~.stage .visual-impact{filter:drop-shadow(0 0 9px #fc80ed)}
+@media(max-width:420px){
+ .enemy-target{right:5%}.target-popover{right:calc(5% - 26px)}
+ .end-combat{right:calc(5% + 8px)}
+ .hero-to-enemy{right:calc(5% + 33px)}
+ .enemy-to-hero{right:calc(5% + 76px)}
+}
+/* Explicit user motion preference: animations remain idle under reduce;
+   existing Play checkbox is an opt-in, not a bypass while no fight exists. */
+@media(prefers-reduced-motion:reduce){
+ #engage:checked~.stage .runner,
+ #engage:checked~.stage .jumper,
+ #engage:checked~.stage .pose,
+ #engage:checked~.stage .arm-weapon,
+ #engage:checked~.stage .arm,
+ #engage:checked~.stage .flash,
+ #engage:checked~.stage .muzzle-ring,
+ #engage:checked~.stage .enemy-sprite,
+ #engage:checked~.stage .enemy-ignition,
+ #engage:checked~.stage .dust-mark,
+ #engage:checked~.stage .shield-field,
+ #engage:checked~.stage .visual-bolt,
+ #engage:checked~.stage .visual-impact,
+ #engage:checked~.stage .return-bolt,
+ #engage:checked~.stage .return-impact{animation-play-state:paused!important}
+ #pause:checked~#engage:checked~.stage .runner,
+ #pause:checked~#engage:checked~.stage .jumper,
+ #pause:checked~#engage:checked~.stage .pose,
+ #pause:checked~#engage:checked~.stage .arm-weapon,
+ #pause:checked~#engage:checked~.stage .arm,
+ #pause:checked~#engage:checked~.stage .flash,
+ #pause:checked~#engage:checked~.stage .muzzle-ring,
+ #pause:checked~#engage:checked~.stage .enemy-sprite,
+ #pause:checked~#engage:checked~.stage .enemy-ignition,
+ #pause:checked~#engage:checked~.stage .dust-mark,
+ #pause:checked~#engage:checked~.stage .shield-field,
+ #pause:checked~#engage:checked~.stage .visual-bolt,
+ #pause:checked~#engage:checked~.stage .visual-impact,
+ #pause:checked~#engage:checked~.stage .return-bolt,
+ #pause:checked~#engage:checked~.stage .return-impact{animation-play-state:running!important}
+}
+
+#engage:not(:checked)~.stage :is(.runner,.jumper,.pose,.arm-weapon,.arm,.flash,.muzzle-ring,.enemy-sprite,.enemy-ignition,.dust-mark,.visual-bolt,.visual-impact,.return-bolt,.return-impact){
+  animation-name:none!important;
+}
+
+
+/* TERRAFORM v48: harmless idle affordance and visible keyboard focus. */
+#idle:checked~.stage .enemy-target{outline:2px dashed #dffdfb55;outline-offset:4px;border-radius:12px}
+#target:checked~.stage .enemy-target{outline:3px solid #9ceaffb8;outline-offset:4px;border-radius:12px}
+#target:checked~.stage .target-popover{display:flex}
+#engage:checked~.stage .target-popover{display:none}
+#engage:checked~.stage .end-combat{display:grid}
+#idle:checked~.stage .end-combat,#target:checked~.stage .end-combat{display:none}
+#target:focus-visible~.stage .enemy-target,#engage:focus-visible~.stage .end-combat,#idle:focus-visible~.stage .enemy-target{outline:3px solid #fff;outline-offset:5px}
+
+/* TERRAFORM v49 — player HP / MP / ME stats; icon-only UI, zero scripted damage.
+   Health/mana are transparent baseline values. Attributes are rated out of five.
+   Native details provides robust no-JavaScript touch/keyboard expansion. */
+.toolbar{display:flex;align-items:flex-start;justify-content:flex-end;flex-wrap:wrap;gap:7px;min-height:54px}
+.player-status{flex:0 0 148px;margin-right:auto;min-width:0;color:#e7f2ff;align-self:flex-start}
+.player-status summary{display:flex;align-items:center;gap:7px;min-height:51px;padding:4px 7px 4px 4px;cursor:pointer;list-style:none;border:1px solid #bddbe9a0;border-radius:13px;background:linear-gradient(145deg,#24324cf2,#101c31f7);box-shadow:inset 0 1px #ffffff24,0 6px 15px #0007;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.player-status summary::-webkit-details-marker{display:none}
+.player-status summary::marker{content:""}
+.player-status summary:focus-visible{outline:3px solid white;outline-offset:3px}
+.player-status[open]{flex-basis:190px}.player-status[open] summary{border-color:#99eaf2}
+.player-portrait{width:43px;height:43px;flex:0 0 43px;position:relative;border-radius:11px;border:1px solid #d6a67b9a;background:linear-gradient(150deg,#56617a,#293148 72%);overflow:hidden;box-shadow:inset 0 1px #fff5}
+.player-portrait::before{content:"";position:absolute;left:10px;top:6px;width:22px;height:28px;background:linear-gradient(#e3c9a4 0 37%,#333e57 38% 58%,#b58a70 59%);border-radius:10px 10px 6px 6px;border:2px solid #94817b}
+.player-portrait::after{content:"";position:absolute;left:7px;bottom:-9px;width:29px;height:19px;background:linear-gradient(140deg,#e9cc9f,#776a67);border:2px solid #2e3d56;border-radius:9px 9px 0 0}
+.status-gauges{flex:1;min-width:0;display:grid;gap:7px}
+.gauge{display:flex;align-items:center;gap:5px;min-width:0;line-height:0}
+.gauge-symbol{display:inline-flex;flex:0 0 13px;width:13px;height:13px;color:#ff8992}
+.gauge.mp .gauge-symbol{color:#86eaff}
+.gauge-symbol svg{width:13px;height:13px;fill:currentColor;stroke:none}
+.gauge-track{flex:1;height:9px;min-width:0;background:#050f20;border:1px solid #c2d7df65;border-radius:5px;overflow:hidden;box-shadow:inset 0 1px 3px #000b}
+.gauge-fill{display:block;height:100%;width:100%;border-radius:4px;background:linear-gradient(90deg,#ab3b62,#ff7586 65%,#ffb1a9);box-shadow:0 0 8px #ff708a4c}
+.mp .gauge-fill{background:linear-gradient(90deg,#20799b,#58cce7 65%,#b5faff);box-shadow:0 0 8px #5ae9ff3b}
+.stat-sheet{margin-top:5px;padding:8px 9px 10px;display:grid;gap:9px;background:linear-gradient(155deg,#1c2943f7,#0e1a2cfb);border:1px solid #9ebfdc87;border-radius:13px;box-shadow:0 6px 14px #0008}
+.stat-sheet-row{display:flex;align-items:center;gap:9px;min-height:24px}
+.stat-sheet .gauge{flex:1}
+.stat-attr-icon{flex:0 0 22px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:#d8e7fc}
+.stat-attr-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.2}
+.stat-dots{display:flex;gap:6px;align-items:center;flex:1;justify-content:flex-end}
+.stat-dots i{width:12px;height:12px;border:1px solid #7294b2;border-radius:4px;background:#1d2d44;transform:rotate(45deg)}
+.stat-dots i.on{background:linear-gradient(145deg,#a7e9ed,#4cabc1);box-shadow:0 0 7px #86eaf666}
+.stat-sheet-row:nth-child(2) .stat-dots i.on{background:linear-gradient(145deg,#e8d9b6,#ba8f5c)}
+.stat-sheet-row:nth-child(3) .stat-dots i.on{background:linear-gradient(145deg,#e4b9e8,#a36cbb)}
+.toolbar .weapons{position:static;flex:0 0 auto;order:1;align-self:flex-start;margin-top:2px;flex-wrap:nowrap;max-width:100%}
+.toolbar .gear-btn{order:2;flex-shrink:0}
+.toolbar .shield-btn{order:3;flex-shrink:0}
+.toolbar .pause-btn{order:4;flex-shrink:0}
+.player-status{order:0}
+@media(max-width:420px){.player-status{flex-basis:128px}.player-portrait{height:39px;width:39px;flex-basis:39px}.player-status summary{min-height:48px;gap:4px;padding-right:6px}.status-gauges{gap:6px}.toolbar{gap:6px}}
+@media(max-width:350px){.player-status[open]{flex-basis:100%}.toolbar{gap:5px}.player-status{flex-basis:122px}.player-portrait{width:37px;height:37px;flex-basis:37px}.toolbar .icon-btn{width:46px;height:48px}.toolbar .weapons .icon-btn{width:44px}}
+
+/* TERRAFORM v50 — deterministic HIT → HP coupling (CSS-only).
+   All health steps occur at the onset of existing drawn impact bursts:
+   hero-to-enemy: start + 5.58% of 6s ≈ start + .3348s;
+   enemy-to-hero: 37.5% of 3.1s ≈ 1.1625 + n*3.1s.
+   Each fight is an 18-second illustrative damage timeline; gauges HOLD their
+   final value afterward. This is not collision detection or computed damage.
+   Encounter radio reset removes animation, restoring 100% on next fight. */
+/* v51 visual layer: HP bar remains immediately above the selected 64x116 opponent,
+   rather than migrating to a detached HUD corner. Stage-relative, motion bounds fixed. */
+.npc-hp{position:absolute;right:calc(8% - 5px);bottom:calc(16% + 121px);
+ width:74px;height:13px;z-index:17;pointer-events:none;border-radius:9px;
+ padding:2px;background:#1b101ce8;border:1px solid #f1c1c1b6;
+ box-shadow:0 2px 6px #000a;overflow:hidden}
+@media(max-width:420px){.npc-hp{right:calc(5% - 5px)}}
+.npc-hp::before{content:"";position:absolute;inset:0;
+ background:linear-gradient(90deg,#fff2 0 1px,transparent 1px 24%,#fff2 24% 25%,transparent 25% 49%,#fff2 49% 50%,transparent 50% 74%,#fff2 74% 75%,transparent 75%);z-index:2;pointer-events:none}
+.npc-hp-fill{display:block;width:100%;height:100%;transform:scaleX(1);transform-origin:left center;
+ background:linear-gradient(90deg,#be294c,#fc7485 80%,#ffc2be);border-radius:4px;
+ animation:npcHPSingle 18.0s linear both;animation-play-state:paused}
+#engage:checked~.stage .npc-hp-fill{animation-play-state:running}
+#w1:checked~.stage .npc-hp-fill{animation-name:npcHPSingle}
+#w2:checked~.stage .npc-hp-fill{animation-name:npcHPDouble}
+#w3:checked~.stage .npc-hp-fill{animation-name:npcHPTriple}
+/* Player gauge uses the existing v49 ME status bar; MP remains 100%. */
+.player-status .gauge.hp .gauge-fill{width:100%;transform-origin:left center;transform:scaleX(1);
+ animation:heroHPDamage 18.0s linear both;animation-play-state:paused}
+#engage:checked~.toolbar .gauge.hp .gauge-fill{animation-play-state:running}
+/* Animation reset is state-driven, not a persistent health engine. */
+#engage:not(:checked)~.stage .npc-hp-fill,
+#engage:not(:checked)~.toolbar .gauge.hp .gauge-fill{animation-name:none!important;transform:scaleX(1)}
+#pause:checked~#engage:checked~.stage .npc-hp-fill,
+#pause:checked~#engage:checked~.toolbar .gauge.hp .gauge-fill{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){
+ #engage:checked~.stage .npc-hp-fill,
+ #engage:checked~.toolbar .gauge.hp .gauge-fill{animation-play-state:paused!important}
+ #pause:checked~#engage:checked~.stage .npc-hp-fill,
+ #pause:checked~#engage:checked~.toolbar .gauge.hp .gauge-fill{animation-play-state:running!important}
+}
+/* Hit confirmations belong to the drawn enemy's impact and make it readable. */
+.npc-hurt{position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:15px;
+ background:radial-gradient(ellipse at center,#e9ffff55,#ff667722 48%,transparent 75%);
+ opacity:0;animation:npcHurtPulse 6s linear infinite;animation-delay:var(--delay);
+ animation-play-state:paused}
+@keyframes npcHurtPulse{0%,5.35%{opacity:0}5.58%{opacity:.8}7.1%,100%{opacity:0}}
+#engage:checked~.stage .npc-hurt{animation-play-state:running}
+#w1:checked~.stage .npc-hurt.burst-2,#w1:checked~.stage .npc-hurt.burst-3,
+#w2:checked~.stage .npc-hurt.burst-3{display:none}
+#engage:not(:checked)~.stage .npc-hurt{animation-name:none!important}
+#pause:checked~#engage:checked~.stage .npc-hurt{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){
+ #engage:checked~.stage .npc-hurt{animation-play-state:paused!important}
+ #pause:checked~#engage:checked~.stage .npc-hurt{animation-play-state:running!important}
+}
+@keyframes npcHPSingle{
+  0%{transform:scaleX(1)}
+  3.20444%{transform:scaleX(1.000)}
+  3.24889%{transform:scaleX(0.930)}
+  14.31556%{transform:scaleX(0.930)}
+  14.36000%{transform:scaleX(0.860)}
+  25.42667%{transform:scaleX(0.860)}
+  25.47111%{transform:scaleX(0.790)}
+  36.53778%{transform:scaleX(0.790)}
+  36.58222%{transform:scaleX(0.720)}
+  47.64889%{transform:scaleX(0.720)}
+  47.69333%{transform:scaleX(0.650)}
+  58.76000%{transform:scaleX(0.650)}
+  58.80444%{transform:scaleX(0.580)}
+  69.87111%{transform:scaleX(0.580)}
+  69.91556%{transform:scaleX(0.510)}
+  80.98222%{transform:scaleX(0.510)}
+  81.02667%{transform:scaleX(0.440)}
+  92.09333%{transform:scaleX(0.440)}
+  92.13778%{transform:scaleX(0.370)}
+  100%{transform:scaleX(0.370)}
+}
+@keyframes npcHPDouble{
+  0%{transform:scaleX(1)}
+  3.20444%{transform:scaleX(1.000)}
+  3.24889%{transform:scaleX(0.960)}
+  4.09333%{transform:scaleX(0.960)}
+  4.13778%{transform:scaleX(0.920)}
+  14.31556%{transform:scaleX(0.920)}
+  14.36000%{transform:scaleX(0.880)}
+  15.20444%{transform:scaleX(0.880)}
+  15.24889%{transform:scaleX(0.840)}
+  25.42667%{transform:scaleX(0.840)}
+  25.47111%{transform:scaleX(0.800)}
+  26.31556%{transform:scaleX(0.800)}
+  26.36000%{transform:scaleX(0.760)}
+  36.53778%{transform:scaleX(0.760)}
+  36.58222%{transform:scaleX(0.720)}
+  37.42667%{transform:scaleX(0.720)}
+  37.47111%{transform:scaleX(0.680)}
+  47.64889%{transform:scaleX(0.680)}
+  47.69333%{transform:scaleX(0.640)}
+  48.53778%{transform:scaleX(0.640)}
+  48.58222%{transform:scaleX(0.600)}
+  58.76000%{transform:scaleX(0.600)}
+  58.80444%{transform:scaleX(0.560)}
+  59.64889%{transform:scaleX(0.560)}
+  59.69333%{transform:scaleX(0.520)}
+  69.87111%{transform:scaleX(0.520)}
+  69.91556%{transform:scaleX(0.480)}
+  70.76000%{transform:scaleX(0.480)}
+  70.80444%{transform:scaleX(0.440)}
+  80.98222%{transform:scaleX(0.440)}
+  81.02667%{transform:scaleX(0.400)}
+  81.87111%{transform:scaleX(0.400)}
+  81.91556%{transform:scaleX(0.360)}
+  92.09333%{transform:scaleX(0.360)}
+  92.13778%{transform:scaleX(0.320)}
+  92.98222%{transform:scaleX(0.320)}
+  93.02667%{transform:scaleX(0.280)}
+  100%{transform:scaleX(0.280)}
+}
+@keyframes npcHPTriple{
+  0%{transform:scaleX(1)}
+  3.20444%{transform:scaleX(1.000)}
+  3.24889%{transform:scaleX(0.970)}
+  4.09333%{transform:scaleX(0.970)}
+  4.13778%{transform:scaleX(0.940)}
+  4.98222%{transform:scaleX(0.940)}
+  5.02667%{transform:scaleX(0.910)}
+  14.31556%{transform:scaleX(0.910)}
+  14.36000%{transform:scaleX(0.880)}
+  15.20444%{transform:scaleX(0.880)}
+  15.24889%{transform:scaleX(0.850)}
+  16.09333%{transform:scaleX(0.850)}
+  16.13778%{transform:scaleX(0.820)}
+  25.42667%{transform:scaleX(0.820)}
+  25.47111%{transform:scaleX(0.790)}
+  26.31556%{transform:scaleX(0.790)}
+  26.36000%{transform:scaleX(0.760)}
+  27.20444%{transform:scaleX(0.760)}
+  27.24889%{transform:scaleX(0.730)}
+  36.53778%{transform:scaleX(0.730)}
+  36.58222%{transform:scaleX(0.700)}
+  37.42667%{transform:scaleX(0.700)}
+  37.47111%{transform:scaleX(0.670)}
+  38.31556%{transform:scaleX(0.670)}
+  38.36000%{transform:scaleX(0.640)}
+  47.64889%{transform:scaleX(0.640)}
+  47.69333%{transform:scaleX(0.610)}
+  48.53778%{transform:scaleX(0.610)}
+  48.58222%{transform:scaleX(0.580)}
+  49.42667%{transform:scaleX(0.580)}
+  49.47111%{transform:scaleX(0.550)}
+  58.76000%{transform:scaleX(0.550)}
+  58.80444%{transform:scaleX(0.520)}
+  59.64889%{transform:scaleX(0.520)}
+  59.69333%{transform:scaleX(0.490)}
+  60.53778%{transform:scaleX(0.490)}
+  60.58222%{transform:scaleX(0.460)}
+  69.87111%{transform:scaleX(0.460)}
+  69.91556%{transform:scaleX(0.430)}
+  70.76000%{transform:scaleX(0.430)}
+  70.80444%{transform:scaleX(0.400)}
+  71.64889%{transform:scaleX(0.400)}
+  71.69333%{transform:scaleX(0.370)}
+  80.98222%{transform:scaleX(0.370)}
+  81.02667%{transform:scaleX(0.340)}
+  81.87111%{transform:scaleX(0.340)}
+  81.91556%{transform:scaleX(0.310)}
+  82.76000%{transform:scaleX(0.310)}
+  82.80444%{transform:scaleX(0.280)}
+  92.09333%{transform:scaleX(0.280)}
+  92.13778%{transform:scaleX(0.250)}
+  92.98222%{transform:scaleX(0.250)}
+  93.02667%{transform:scaleX(0.220)}
+  93.87111%{transform:scaleX(0.220)}
+  93.91556%{transform:scaleX(0.190)}
+  100%{transform:scaleX(0.190)}
+}
+@keyframes heroHPDamage{
+  0%{transform:scaleX(1)}
+  6.41389%{transform:scaleX(1.000)}
+  6.45833%{transform:scaleX(0.910)}
+  23.63611%{transform:scaleX(0.910)}
+  23.68056%{transform:scaleX(0.820)}
+  40.85833%{transform:scaleX(0.820)}
+  40.90278%{transform:scaleX(0.730)}
+  58.08056%{transform:scaleX(0.730)}
+  58.12500%{transform:scaleX(0.640)}
+  75.30278%{transform:scaleX(0.640)}
+  75.34722%{transform:scaleX(0.550)}
+  92.52500%{transform:scaleX(0.550)}
+  92.56944%{transform:scaleX(0.460)}
+  100%{transform:scaleX(0.460)}
+}
+
+/* v51: matching avatar feedback: pulse at return-impact landing, not on launch. */
+.hero-hurt{position:absolute;z-index:5;inset:0;border-radius:12px;pointer-events:none;
+ background:radial-gradient(circle at 53% 39%,#fff8cc88,#ff544933 42%,transparent 72%);
+ opacity:0;animation:heroImpactPulse 3.1s linear infinite paused}
+@keyframes heroImpactPulse{0%,37.35%{opacity:0}37.5%{opacity:.87}40.5%,100%{opacity:0}}
+#engage:checked~.stage .hero-hurt{animation-play-state:running}
+#engage:not(:checked)~.stage .hero-hurt{animation-name:none!important}
+#pause:checked~#engage:checked~.stage .hero-hurt{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){
+ #engage:checked~.stage .hero-hurt{animation-play-state:paused!important}
+ #pause:checked~#engage:checked~.stage .hero-hurt{animation-play-state:running!important}
+}
+/* v51: illustrate a finite 18s exchange: visible shot/impact loops do not repeat
+   forever once the scripted HP track has stopped. Enemy's final volley is 18.6s.
+   Animation fill retains transparent final frame; movement remains continuous. */
+#engage:checked~.stage :is(.visual-bolt,.visual-impact,.flash,.muzzle-ring,.npc-hurt){
+ animation-iteration-count:3!important;animation-fill-mode:forwards!important}
+#engage:checked~.stage :is(.return-bolt,.return-impact,.enemy-shot,.enemy-ignition,.hero-hurt){
+ animation-iteration-count:6!important;animation-fill-mode:forwards!important}
+/* Cap firing controls in the same 18s demo without suppressing existing pause rules. */
+
+/* WA-CHA!^*+ v52 — P.ASSEMBLY verified CSS-only weapon state lock.
+   Weapon-mode selection is allowed before initiating combat. Once engaged,
+   lock tap AND native keyboard selection to preserve the originally chosen
+   18s scripted HP trajectory. CSS visibility removes hidden inputs from
+   sequential keyboard navigation; pointer-events prevents gear activation.
+   This is UI enforcement, NOT a secure mutable-state engine or true damage. */
+#engage:checked ~ .toolbar .weapons{display:none!important;pointer-events:none!important}
+#engage:checked ~ .toolbar .gear-btn{
+  pointer-events:none!important;opacity:.4;cursor:not-allowed;
+  filter:grayscale(.8)
+}
+#engage:checked ~ #w1,
+#engage:checked ~ #w2,
+#engage:checked ~ #w3{visibility:hidden!important}
+/* Gear input precedes encounter radios: :has() handles the backward dependency. */
+.game:has(#engage:checked) #gear{visibility:hidden!important}
+#engage:checked ~ .toolbar .gear-btn::before{
+  content:"";position:absolute;left:3px;top:3px;width:10px;height:10px;
+  border:2px solid #f2d5a0;border-radius:3px;pointer-events:none;
+  background:#102034
+}
+/* Dynamic accessible explanation without visible on-screen words. */
+#engage:not(:checked) ~ .toolbar .combat-mode-status{display:none}
+#engage:checked ~ .toolbar .combat-mode-status{display:block}
+.toolbar .combat-mode-status{
+  position:absolute!important;width:1px!important;height:1px!important;
+  padding:0!important;margin:-1px!important;overflow:hidden!important;
+  clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important
+}
+</style></head><body><main class="game" aria-label="Tatooine combat: select opponent, choose attack, pause or stop">
+<input class="choice" id="pause" type="checkbox" aria-label="Pause combat animation">
+<input class="choice" id="gear" type="checkbox" aria-label="Weapon menu">
+<input class="choice" id="shield" type="checkbox" aria-label="Toggle energy shield">
+<!-- Exclusive CSS-native combat states prevent impossible target/engagement combinations. -->
+<input class="choice" id="idle" type="radio" name="encounter" checked aria-label="Combat idle">
+<input class="choice" id="target" type="radio" name="encounter" aria-label="Enemy selected">
+<input class="choice" id="engage" type="radio" name="encounter" aria-label="Combat engaged">
+<input class="choice" id="w1" type="radio" name="weapon" checked aria-label="Blaster weapon">
+<input class="choice" id="w2" type="radio" name="weapon" aria-label="Rapid weapon">
+<input class="choice" id="w3" type="radio" name="weapon" aria-label="Heavy weapon">
+<section class="stage" aria-label="Animated desert combat scene"><svg class="scenery" viewBox="0 0 1000 650" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="v38sky" x1="0" y1="0" x2="0.15" y2="1"><stop stop-color="#141b43"/><stop offset=".28" stop-color="#463e68"/><stop offset=".61" stop-color="#a36c81"/><stop offset=".88" stop-color="#e3a16f"/><stop offset="1" stop-color="#ffc589"/></linearGradient>
+  <radialGradient id="v38glow"><stop stop-color="#ffe6a4" stop-opacity=".85"/><stop offset=".2" stop-color="#ffcfa0" stop-opacity=".4"/><stop offset="1" stop-color="#f3ad96" stop-opacity="0"/></radialGradient>
+  <linearGradient id="v38mesa" x1="0" y1="0" x2=".1" y2="1"><stop stop-color="#81516d"/><stop offset=".5" stop-color="#67485f"/><stop offset="1" stop-color="#3f3651"/></linearGradient>
+  <linearGradient id="v38ground" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dc9366"/><stop offset=".45" stop-color="#b76d57"/><stop offset="1" stop-color="#714358"/></linearGradient>
+  <linearGradient id="v38wall" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#59475e"/><stop offset=".5" stop-color="#9b6573"/><stop offset="1" stop-color="#43384f"/></linearGradient>
+  <linearGradient id="v38sun" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffce0"/><stop offset=".7" stop-color="#fff1bb"/><stop offset="1" stop-color="#ffca99"/></linearGradient>
+  <pattern id="v38grit" width="47" height="31" patternUnits="userSpaceOnUse"><path d="M5 12h4m25 9h3M19 29h2" stroke="#ffd1a2" stroke-width="1" opacity=".28"/><circle cx="24" cy="8" r="1" fill="#503750" opacity=".35"/></pattern>
+</defs>
+<path fill="url(#v38sky)" d="M0 0h1000v650H0z"/>
+<ellipse cx="746" cy="175" rx="265" ry="245" fill="url(#v38glow)"/>
+<ellipse cx="831" cy="107" rx="98" ry="90" fill="url(#v38glow)" opacity=".7"/>
+<g fill="#f6e9d5" opacity=".72"><circle cx="105" cy="70" r="1.7"/><circle cx="219" cy="121" r="1.1"/><circle cx="300" cy="59" r="1.5"/><circle cx="443" cy="94" r="1.2"/><circle cx="516" cy="47" r="1.8"/><circle cx="602" cy="135" r="1.1"/><circle cx="908" cy="50" r="1.3"/><circle cx="955" cy="142" r="1.5"/></g>
+<g fill="none" stroke="#f8c7aa" stroke-width="3" opacity=".15"><path d="M-60 171Q160 130 354 162T776 145"/><path d="M220 205Q460 181 612 194T1060 176"/><path d="M-10 255Q160 239 292 257"/></g>
+<circle cx="738" cy="172" r="53" fill="#ffdfa7" opacity=".16"/><circle cx="738" cy="172" r="37" fill="url(#v38sun)"/><circle cx="835" cy="108" r="19" fill="url(#v38sun)"/>
+<path d="M0 405 72 372 138 389 220 330 278 361 338 314 412 386 470 351 551 390 618 333 688 374 760 338 823 384 920 329 1000 379v271H0Z" fill="#7b5871" opacity=".44"/>
+<path d="M0 451 76 402 143 416 195 382 254 405 304 363 357 416 419 398 474 429 548 374 607 420 666 395 743 435 817 380 896 412 965 371 1000 393v257H0Z" fill="#704e64" opacity=".78"/>
+<g fill="url(#v38mesa)"><path d="M64 465 98 418h50l17-30h74l10 77z"/><path d="M566 477 608 422h39l19-54h65l17 46 26 63z"/><path d="M862 461 888 415h49l24-29 39 49v26z"/></g>
+<g stroke="#d38b80" stroke-width="3" opacity=".3"><path d="M100 432h123m-115 12h114m385-25h116m-111 16h113m165-11h62"/></g>
+<path d="M0 481Q122 455 225 482T452 480Q566 450 680 484T1000 463v187H0Z" fill="#bf7a65"/>
+<path d="M0 515Q172 486 296 507T579 499Q765 474 1000 500v150H0Z" fill="#d49a6e"/>
+<g transform="translate(282 387)" fill="url(#v38wall)" stroke="#e1a482" stroke-width="2" stroke-opacity=".42">
+ <path d="M0 102V37q0-32 34-32t34 32v65Z"/><path d="M69 102V14h62v88Z"/><path d="M136 102V42q0-34 31-34t31 34v60Z"/><path d="M196 102V59h58v43Z"/>
+ <path d="M12 102V58h42v44Z" fill="#302d49" stroke="none"/><path d="M92 102V52h21v50Z" fill="#322f49" stroke="none"/><path d="M153 102V63h29v39Z" fill="#39334b" stroke="none"/>
+ <path d="M15 38h39m40-6h22m38 11h30m26 35h30" stroke="#efb38a" fill="none" stroke-opacity=".52"/>
+ <circle cx="34" cy="29" r="4" fill="#ffcb88" stroke="none"/><circle cx="103" cy="25" r="3" fill="#ffca89" stroke="none"/>
+</g>
+<g stroke="#51435b" stroke-linecap="round" opacity=".84"><path d="M816 498v-94m-18 20h36m-36 12h36M805 408l11-14 11 14" stroke-width="6"/><path d="M804 468h24" stroke-width="3"/><path d="M158 503v-72m-19 15h38m-33 18h28" stroke-width="5"/></g>
+<path d="M0 531Q180 511 332 541T635 529Q808 508 1000 532v118H0Z" fill="url(#v38ground)"/>
+<path d="M0 559Q178 532 318 557T618 546Q833 524 1000 558" fill="none" stroke="#ffd09a" stroke-width="6" opacity=".37"/>
+<path d="M0 587Q160 566 300 590T622 575Q818 555 1000 586" fill="none" stroke="#5c4257" stroke-width="12" opacity=".3"/>
+<path d="M0 608 162 591 322 615 532 595 745 623 1000 599v51H0Z" fill="#8d5260" opacity=".5"/>
+<path d="M0 532h1000v118H0Z" fill="url(#v38grit)"/>
+<g fill="#4c3b52" opacity=".65"><path d="m96 587 12-5 10 4-6 4z"/><path d="m530 572 18-4 10 7-22 1z"/><path d="m713 604 9-5 18 4-8 5z"/><path d="m890 578 14-6 16 4-13 6z"/></g>
+<g fill="none" stroke="#f8b78a" stroke-width="2" opacity=".45"><path d="M150 555q35-11 76-4m428 18q55-15 94-7M409 617q65-11 91-5"/></g>
+</svg><div class="scanline"></div><div class="dunes"></div><div class="ridge"></div><div class="arch"></div><div class="ornament" aria-hidden="true"><i></i><i></i><i></i></div><div class="lane"><span class="motion-rail" aria-hidden="true"><i></i><i></i></span><div class="runner"><div class="jumper"><div class="avatar anatomy anatomy--hero" role="img" aria-label="Hero with individually shaped head, neck, chest, body, arms, hands, legs and feet">
+  <i class="hero-hurt" aria-hidden="true"></i>
+  <div class="pose anatomy-pose">
+    <span class="unit-leg leg-left leg-l" aria-hidden="true"></span>
+    <span class="unit-leg leg-right leg-r" aria-hidden="true"></span>
+    <span class="unit-foot foot-left" aria-hidden="true"></span>
+    <span class="unit-foot foot-right" aria-hidden="true"></span>
+    <span class="unit-pelvis" aria-hidden="true"></span>
+    <span class="unit-arm arm-back" aria-hidden="true"></span>
+    <span class="unit-hand hand-back" aria-hidden="true"></span>
+    <span class="unit-body" aria-hidden="true"></span>
+    <span class="unit-chest" aria-hidden="true"></span>
+    <span class="unit-neck" aria-hidden="true"></span>
+    <span class="unit-head" aria-hidden="true"><i class="visor"></i></span>
+    <span class="unit-shoulder" aria-hidden="true"></span>
+    <span class="arm-weapon arm" aria-hidden="true">
+      <i class="unit-arm arm-front"></i><i class="unit-hand hand-front"></i>
+      <i class="blaster-stock"></i><i class="blaster-muzzle"></i>
+      <svg class="weapon-fx" viewBox="0 0 40 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><g class="shot burst-1" style="--delay:0.25s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-2" style="--delay:0.41s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-3" style="--delay:0.57s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-1" style="--delay:2.25s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-2" style="--delay:2.41s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-3" style="--delay:2.57s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-1" style="--delay:4.25s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-2" style="--delay:4.41s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g>
+<g class="shot burst-3" style="--delay:4.57s"><circle class="flash" cx="30" cy="3.5" r="6" fill="#ffe49c"/><circle class="muzzle-ring" cx="30" cy="3.5" r="8" fill="none" stroke="#ffe6aa" stroke-width="1.5"/><rect class="beam" x="30" y="1.5" width="21" height="4" rx="2" fill="#72efff"/></g></svg>
+    </span>
+  </div>
+</div><span class="shield-field" aria-hidden="true"></span></div><span class="dust-mark" aria-hidden="true"></span></div></div><div class="combat-fx" aria-hidden="true">
+   <div class="hero-to-enemy"><span class="visual-shot burst-1" style="--delay:0.25s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-2" style="--delay:0.41s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-3" style="--delay:0.57s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-1" style="--delay:2.25s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-2" style="--delay:2.41s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-3" style="--delay:2.57s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-1" style="--delay:4.25s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-2" style="--delay:4.41s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span><span class="visual-shot burst-3" style="--delay:4.57s" aria-hidden="true"><i class="visual-bolt"></i><i class="visual-impact"></i></span></div>
+   <div class="enemy-to-hero"><span class="return-bolt"></span><span class="return-impact"></span></div>
+</div><div class="crosshair" aria-hidden="true"></div><div class="npc-hp" role="img" aria-label="Opponent HP preview: weapon-dependent scripted hit steps; 100 percent initially, not live collision tracking"><span class="npc-hp-fill"></span></div><div class="enemy"><i class="npc-hurt burst-1" style="--delay:0.25s" aria-hidden="true"></i><i class="npc-hurt burst-2" style="--delay:0.41s" aria-hidden="true"></i><i class="npc-hurt burst-3" style="--delay:0.57s" aria-hidden="true"></i><i class="npc-hurt burst-1" style="--delay:2.25s" aria-hidden="true"></i><i class="npc-hurt burst-2" style="--delay:2.41s" aria-hidden="true"></i><i class="npc-hurt burst-3" style="--delay:2.57s" aria-hidden="true"></i><i class="npc-hurt burst-1" style="--delay:4.25s" aria-hidden="true"></i><i class="npc-hurt burst-2" style="--delay:4.41s" aria-hidden="true"></i><i class="npc-hurt burst-3" style="--delay:4.57s" aria-hidden="true"></i><div class="anatomy anatomy--enemy enemy-sprite" role="img" aria-label="Enemy combatant with individually shaped armor and a left-facing blaster">
+  <span class="unit-leg leg-left" aria-hidden="true"></span>
+  <span class="unit-leg leg-right" aria-hidden="true"></span>
+  <span class="unit-foot foot-left" aria-hidden="true"></span>
+  <span class="unit-foot foot-right" aria-hidden="true"></span>
+  <span class="unit-pelvis" aria-hidden="true"></span>
+  <span class="unit-arm arm-back" aria-hidden="true"></span>
+  <span class="unit-hand hand-back" aria-hidden="true"></span>
+  <span class="unit-body" aria-hidden="true"></span>
+  <span class="unit-chest" aria-hidden="true"></span>
+  <span class="unit-neck" aria-hidden="true"></span>
+  <span class="unit-head" aria-hidden="true"><i class="visor"></i></span>
+  <span class="unit-shoulder" aria-hidden="true"></span>
+  <span class="npc-weapon-arm" aria-hidden="true"><i class="unit-arm arm-front"></i><i class="unit-hand hand-front"></i><i class="npc-blaster"></i><i class="npc-muzzle"></i></span>
+</div><div class="enemy-shot" aria-hidden="true"></div><span class="enemy-ignition" aria-hidden="true"></span></div><label class="enemy-target" for="target" aria-label="Select this opponent" title="Select opponent">
+  <span class="enemy-target-bracket" aria-hidden="true"></span>
+</label>
+<div class="target-popover" role="group" aria-label="Opponent actions">  <label class="target-action attack-action" for="engage" aria-label="Attack selected opponent" title="Attack">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 16h17M17 10l9 6-9 6M6 10h5M6 22h5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="27" cy="16" r="3" fill="currentColor"/></svg>
+  </label>
+  <label class="target-action dismiss-action" for="idle" aria-label="Dismiss opponent selection" title="Dismiss">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 9l14 14M23 9L9 23" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+  </label>
+</div>
+<label class="target-action end-combat" for="idle" aria-label="End combat" title="End combat">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="9" width="14" height="14" rx="2" fill="currentColor"/></svg>
+</label>
+<div class="tiny-mark" aria-hidden="true"><b></b><b></b><b></b></div></section>
+<nav class="toolbar" aria-label="Combat controls"><span class="combat-mode-status" role="status">Weapon locked until combat ends.</span>
+  <details class="player-status" aria-label="My character statistics">
+    <summary aria-label="My character stats. HP reduces at timed enemy hit effects, mana remains 100. Open attributes" title="My character statistics">
+      <span class="player-portrait" aria-hidden="true"></span>
+      <span class="status-gauges">
+        <span class="gauge hp" role="img" aria-label="Player HP visual preview: 100 to 46 during an 18 second scripted encounter; no collision detection">
+          <span class="gauge-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21 3.5 12.6C-1 7.8 6 1 12 6.9 18 1 25 7.8 20.5 12.6Z"/></svg></span>
+          <span class="gauge-track"><span class="gauge-fill"></span></span>
+        </span>
+        <span class="gauge mp" role="progressbar" aria-label="Mana points, MP" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <span class="gauge-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m14 1-11 13h8l-1 9L22 9h-8z"/></svg></span>
+          <span class="gauge-track"><span class="gauge-fill"></span></span>
+        </span>
+      </span>
+    </summary>
+    <div class="stat-sheet" role="group" aria-label="My character attributes. These are baseline preview ratings, not live combat calculations">
+      <div class="stat-sheet-row" role="img" aria-label="Armor rating three out of five" title="Armor: three of five">
+        <span class="stat-attr-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 5-3 8-9 10-6-2-9-5-9-10V6z"/><path d="m12 6-5 3v4l5 5 5-5V9z"/></svg></span>
+        <span class="stat-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+      </div>
+      <div class="stat-sheet-row" role="img" aria-label="Mobility rating four out of five" title="Mobility: four of five">
+        <span class="stat-attr-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h12m-9 5h16M3 17h12M15 3l6 9-6 9"/></svg></span>
+        <span class="stat-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+      </div>
+      <div class="stat-sheet-row" role="img" aria-label="Marksmanship rating three out of five" title="Marksmanship: three of five">
+        <span class="stat-attr-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/></svg></span>
+        <span class="stat-dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+      </div>
+    </div>
+  </details>
+
+  <div class="weapons" role="group" aria-label="Weapons">
+    <label class="icon-btn weapon1" for="w1" aria-label="Select single blaster" title="Blaster"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 18h18l6-4M8 22h8l-2 6"/><circle cx="26" cy="12" r="2"/></svg></label>
+    <label class="icon-btn weapon2" for="w2" aria-label="Select rapid blaster" title="Rapid"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 8h23M3 16h23M3 24h23"/><path d="m22 4 6 4-6 4m0 0 6 4-6 4m0 0 6 4-6 4"/></svg></label>
+    <label class="icon-btn weapon3" for="w3" aria-label="Select heavy blaster" title="Heavy"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 12h17l7 4-7 4H4Z"/><path d="M10 21v7h7v-7M10 7h9"/></svg></label>
+  </div>
+  <label class="icon-btn gear-btn" for="gear" aria-label="Toggle weapon selection" title="Weapons"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 17h21v-6H5Zm3 0v9h7v-9M26 14h3"/><path d="M14 11V7h6v4"/></svg></label>
+  <label class="icon-btn shield-btn" for="shield" aria-label="Toggle energy shield" title="Shield"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 27 8v8c0 6-4 11-11 13C9 27 5 22 5 16V8Z"/><path d="m11 16 4 4 7-9"/></svg></label>
+  <label class="icon-btn pause-btn" for="pause" aria-label="Pause or resume combat" title="Pause or resume"><svg class="pause-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M10 7v18M22 7v18" stroke-width="5"/></svg><svg class="play-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="m11 6 16 10-16 10Z" fill="currentColor" stroke="none"/></svg></label>
+</nav></main></body></html>
