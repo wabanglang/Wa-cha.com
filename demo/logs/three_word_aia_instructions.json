@@ -1,0 +1,392 @@
+{
+  "schema": "WA-CHA AIA Three-Word Inquiry to Instruction Mapping",
+  "version": "v52",
+  "provenance": "v52 AIA ledger, 48 entries",
+  "notice": "Three-word inquiries are generated labels. Full source actions are retained as AIA imperatives. Prior status is historical; rerun tests to claim new passes.",
+  "items": [
+    {
+      "id": "T001",
+      "phase": "P0",
+      "three_word_inquiry": "Discover latest canonical?",
+      "aia_instruction": "Discover latest canonical artifact. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "baseline SHA-256 and archive manifest check"
+    },
+    {
+      "id": "T002",
+      "phase": "P0",
+      "three_word_inquiry": "Reconcile previous issue?",
+      "aia_instruction": "Reconcile previous issue history. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "historical issue ID reconciliation 100 + 3"
+    },
+    {
+      "id": "T003",
+      "phase": "P0",
+      "three_word_inquiry": "Hash immutable baseline?",
+      "aia_instruction": "Hash immutable baseline source. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "v51 HTML checksum verified"
+    },
+    {
+      "id": "T004",
+      "phase": "P0",
+      "three_word_inquiry": "Resolve input source?",
+      "aia_instruction": "Resolve input source authority. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "source authority preserved, v51 -> v52 patch"
+    },
+    {
+      "id": "T005",
+      "phase": "P0",
+      "three_word_inquiry": "Identify target runtime?",
+      "aia_instruction": "Identify target runtime capabilities. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Native target runtime untested (Koder/Preview)"
+    },
+    {
+      "id": "T006",
+      "phase": "P0",
+      "three_word_inquiry": "Initialize atomic execution?",
+      "aia_instruction": "Initialize atomic execution ledger. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "48-step trace rebuilt with evidence bounds"
+    },
+    {
+      "id": "T007",
+      "phase": "P1",
+      "three_word_inquiry": "Preserve user gameplay?",
+      "aia_instruction": "Preserve user gameplay intent. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "selection -> attack -> end accepted"
+    },
+    {
+      "id": "T008",
+      "phase": "P1",
+      "three_word_inquiry": "Enforce zero JavaScript?",
+      "aia_instruction": "Enforce zero JavaScript constraint. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "zero script elements and network fetches confirmed"
+    },
+    {
+      "id": "T009",
+      "phase": "P1",
+      "three_word_inquiry": "Protect original avatar?",
+      "aia_instruction": "Protect original avatar dimensions. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "both sprite DOM boxes 64x116 in 6 cases"
+    },
+    {
+      "id": "T010",
+      "phase": "P1",
+      "three_word_inquiry": "Resolve one ninth?",
+      "aia_instruction": "Resolve one ninth geometry. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Current test measured width containment, not new 1/9 motion sampling"
+    },
+    {
+      "id": "T011",
+      "phase": "P1",
+      "three_word_inquiry": "Distinguish visual from?",
+      "aia_instruction": "Distinguish visual from functional physics. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "no real collision/damage claims"
+    },
+    {
+      "id": "T012",
+      "phase": "P1",
+      "three_word_inquiry": "Prioritize highest impact?",
+      "aia_instruction": "Prioritize highest impact regressions. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "targeted v51 HP51-05 user-visible issue"
+    },
+    {
+      "id": "T013",
+      "phase": "P2",
+      "three_word_inquiry": "Isolate horizontal transform?",
+      "aia_instruction": "Isolate horizontal transform owner. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Motion hierarchy preserved by unchanged source; no fresh trajectory measurement"
+    },
+    {
+      "id": "T014",
+      "phase": "P2",
+      "three_word_inquiry": "Separate posture movement?",
+      "aia_instruction": "Separate posture movement layers. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Static leg source preserved; fresh pose sampling not performed"
+    },
+    {
+      "id": "T015",
+      "phase": "P2",
+      "three_word_inquiry": "Measure bidirectional avatar?",
+      "aia_instruction": "Measure bidirectional avatar travel. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Fresh bidirectional stride distances not remeasured"
+    },
+    {
+      "id": "T016",
+      "phase": "P2",
+      "three_word_inquiry": "Verify seamless movement?",
+      "aia_instruction": "Verify seamless movement boundaries. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Cycle boundary not freshly sampled"
+    },
+    {
+      "id": "T017",
+      "phase": "P2",
+      "three_word_inquiry": "Bound mobile viewport?",
+      "aia_instruction": "Bound mobile viewport displacement. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Overflow checked, moving sprite containment not freshly sampled"
+    },
+    {
+      "id": "T018",
+      "phase": "P2",
+      "three_word_inquiry": "Verify pause resume?",
+      "aia_instruction": "Verify pause resume behavior. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "pause and reduced-motion Play opt-in tested 6/6"
+    },
+    {
+      "id": "T019",
+      "phase": "P3",
+      "three_word_inquiry": "Locate barrel muzzle?",
+      "aia_instruction": "Locate barrel muzzle endpoint. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Muzzle origins unchanged, not freshly remeasured"
+    },
+    {
+      "id": "T020",
+      "phase": "P3",
+      "three_word_inquiry": "Attach muzzle flash?",
+      "aia_instruction": "Attach muzzle flash accurately. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Muzzle flash source unchanged, not remeasured"
+    },
+    {
+      "id": "T021",
+      "phase": "P3",
+      "three_word_inquiry": "Preserve variable burst?",
+      "aia_instruction": "Preserve variable burst sequences. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "All 3 weapon modes retained; individual bursts not freshly recounted"
+    },
+    {
+      "id": "T022",
+      "phase": "P3",
+      "three_word_inquiry": "Synchronize weapon state?",
+      "aia_instruction": "Synchronize weapon state changes. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "prevented weapon changes during engaged mode; next encounter selection works"
+    },
+    {
+      "id": "T023",
+      "phase": "P3",
+      "three_word_inquiry": "Check enemy combat?",
+      "aia_instruction": "Check enemy combat feedback. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Player/enemy HP choreography remains as v51; outcomes limited to sampled triple first end HP"
+    },
+    {
+      "id": "T024",
+      "phase": "P3",
+      "three_word_inquiry": "Report true projectile?",
+      "aia_instruction": "Report true projectile limitations. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "reported scripted HP limitation"
+    },
+    {
+      "id": "T025",
+      "phase": "P4",
+      "three_word_inquiry": "Minimize visible gameplay?",
+      "aia_instruction": "Minimize visible gameplay controls. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "icon-only UI preserved with disabled gear in combat"
+    },
+    {
+      "id": "T026",
+      "phase": "P4",
+      "three_word_inquiry": "Preserve zero word?",
+      "aia_instruction": "Preserve zero word presentation. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "main visible text empty at all 6 viewports"
+    },
+    {
+      "id": "T027",
+      "phase": "P4",
+      "three_word_inquiry": "Prevent controls obscuring?",
+      "aia_instruction": "Prevent controls obscuring gameplay. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "weapon menu not overlaid during combat 6/6"
+    },
+    {
+      "id": "T028",
+      "phase": "P4",
+      "three_word_inquiry": "Verify touch and?",
+      "aia_instruction": "Verify touch and focus targets. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "touch gear tap and keyboard ArrowLeft bypass checks 6/6"
+    },
+    {
+      "id": "T029",
+      "phase": "P4",
+      "three_word_inquiry": "Provide controllable reduced?",
+      "aia_instruction": "Provide controllable reduced motion. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "reduce vs normal tested across 3 widths"
+    },
+    {
+      "id": "T030",
+      "phase": "P4",
+      "three_word_inquiry": "Inspect tactical feedback?",
+      "aia_instruction": "Inspect tactical feedback hierarchy. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Combat screenshot captured; no human UX study"
+    },
+    {
+      "id": "T031",
+      "phase": "P5",
+      "three_word_inquiry": "Run three viewport?",
+      "aia_instruction": "Run three viewport smoke tests. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "6 Chromium viewport/motion configurations"
+    },
+    {
+      "id": "T032",
+      "phase": "P5",
+      "three_word_inquiry": "Sample three second?",
+      "aia_instruction": "Sample three second motion. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Synthetic three-second movement sample not rerun"
+    },
+    {
+      "id": "T033",
+      "phase": "P5",
+      "three_word_inquiry": "Check layout containment?",
+      "aia_instruction": "Check layout containment boundaries. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "documentElement no overflow at all widths"
+    },
+    {
+      "id": "T034",
+      "phase": "P5",
+      "three_word_inquiry": "Inspect runtime console?",
+      "aia_instruction": "Inspect runtime console errors. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "no console errors or network requests 6/6"
+    },
+    {
+      "id": "T035",
+      "phase": "P5",
+      "three_word_inquiry": "Measure artifact transfer?",
+      "aia_instruction": "Measure artifact transfer footprint. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "v52 bytes and SHA measured"
+    },
+    {
+      "id": "T036",
+      "phase": "P5",
+      "three_word_inquiry": "Differentiate target preview?",
+      "aia_instruction": "Differentiate target preview evidence. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "target platform not claimed verified"
+    },
+    {
+      "id": "T037",
+      "phase": "P6",
+      "three_word_inquiry": "Create isolated candidate?",
+      "aia_instruction": "Create isolated candidate artifact. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "separate v52 HTML built"
+    },
+    {
+      "id": "T038",
+      "phase": "P6",
+      "three_word_inquiry": "Execute targeted atomic?",
+      "aia_instruction": "Execute targeted atomic improvements. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "CSS weapon lock inserted on engaged state"
+    },
+    {
+      "id": "T039",
+      "phase": "P6",
+      "three_word_inquiry": "Run regression acceptance?",
+      "aia_instruction": "Run regression acceptance suite. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "6/6 browser regression suite includes weapon-lock test"
+    },
+    {
+      "id": "T040",
+      "phase": "P6",
+      "three_word_inquiry": "Rollback any failing?",
+      "aia_instruction": "Rollback any failing modification. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "NOT_RUN",
+      "evidence_v52": "Rollback was not executed: acceptance suite passed; prior v51 unchanged"
+    },
+    {
+      "id": "T041",
+      "phase": "P6",
+      "three_word_inquiry": "Produce canonical execution?",
+      "aia_instruction": "Produce canonical execution evidence. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "JSON evidence persisted"
+    },
+    {
+      "id": "T042",
+      "phase": "P6",
+      "three_word_inquiry": "Release only accurate?",
+      "aia_instruction": "Release only accurate deliverables. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "release ZIP with SHA manifest verified"
+    },
+    {
+      "id": "T043",
+      "phase": "P7",
+      "three_word_inquiry": "Merge recurring user?",
+      "aia_instruction": "Merge recurring user feedback. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "v51 user complaint and log interpreted; account-wide inputs not fetched"
+    },
+    {
+      "id": "T044",
+      "phase": "P7",
+      "three_word_inquiry": "Close evidence backed?",
+      "aia_instruction": "Close evidence backed defects. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "HP52-01 closed using measured test"
+    },
+    {
+      "id": "T045",
+      "phase": "P7",
+      "three_word_inquiry": "Rank next smallest?",
+      "aia_instruction": "Rank next smallest improvement. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "Koder + genuine state engine constraints recorded"
+    },
+    {
+      "id": "T046",
+      "phase": "P7",
+      "three_word_inquiry": "Record blocked environment?",
+      "aia_instruction": "Record blocked environment checks. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "external runtime unverified, explicitly recorded"
+    },
+    {
+      "id": "T047",
+      "phase": "P7",
+      "three_word_inquiry": "Consolidate authoritative artifact?",
+      "aia_instruction": "Consolidate authoritative artifact lineage. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PASS",
+      "evidence_v52": "v51 archive 71 historical logs verified without modification"
+    },
+    {
+      "id": "T048",
+      "phase": "P7",
+      "three_word_inquiry": "Update next scheduled?",
+      "aia_instruction": "Update next scheduled transaction. Record evidence; verify the result; report PASS, PARTIAL, FAIL, BLOCKED, UNKNOWN, or NOT_RUN without inventing execution.",
+      "observed_status_v52": "PARTIAL",
+      "evidence_v52": "Task scheduling handled outside build and not a code test"
+    }
+  ]
+}
