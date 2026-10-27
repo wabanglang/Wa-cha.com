@@ -1,0 +1,49 @@
+{
+  "version": "v52",
+  "branch": "Demo",
+  "tested_object": "demo/index.html",
+  "git_blob_sha": "116b14282bac934cb38fa4b85ec30e2efae3f625",
+  "verified_exact_byte_match": true,
+  "runner": "Chromium Playwright set_content",
+  "navigation_note": "Direct localhost navigation failed net::ERR_BLOCKED_BY_ADMINISTRATOR; set_content injected identical uploaded HTML",
+  "viewports": [
+    320,
+    390,
+    900
+  ],
+  "motion_modes": [
+    "normal",
+    "reduced"
+  ],
+  "cases": 6,
+  "passed": 6,
+  "checks": [
+    "initial idle",
+    "target selection",
+    "overhead Attack popover",
+    "engage both combatants",
+    "gear lock during combat",
+    "weapon label pointer lock",
+    "visible enemy-shot DOM",
+    "end resets idle",
+    "popover dismissed",
+    "gear unlock",
+    "no horizontal overflow",
+    "zero script tags",
+    "no JS errors",
+    "no external network requests"
+  ],
+  "recorded_artifacts": [
+    "wa_cha_v52_run_report.json",
+    "wa_cha_v52_run_idle_390.png",
+    "wa_cha_v52_run_target_390.png",
+    "wa_cha_v52_run_combat_390.png",
+    "wa_cha_v52_run_live_combat.gif"
+  ],
+  "limits": [
+    "Not a live website deployment",
+    "Koder/iOS Safari/ChatGPT embedded Preview unverified",
+    "Scripted CSS impacts and HP not actual collision-driven health",
+    "This execution does not establish all 48 AIA log nodes executed"
+  ]
+}
